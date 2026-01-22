@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Carros\" />
+    <Folder Include="Views\Veiculos\" />
   </ItemGroup>
 
 </Project>

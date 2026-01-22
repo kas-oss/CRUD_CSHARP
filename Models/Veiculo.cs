@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CRUD_CSHARP.Models;
 
-public class Carro
+public class Veiculo
 {
     public int Id { get; set; }
 
