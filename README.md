@@ -1,49 +1,60 @@
-# CRUD_CSHARP
+# Desafio Técnico: CRUD C# (ASP.NET Core MVC)
 
-Esta é uma aplicação web **ASP.NET Core MVC** que implementa um **CRUD** simples para gerenciamento de **Motoristas** e **Carros**.
+Olá, bem-vindo(a) ao nosso teste técnico.
 
-O objetivo desta aplicação é testar suas habilidades, avaliando sua capacidade de usar o que já foi introduzido no projeto, com criatividade, para:
+Esta é uma aplicação web simples em **ASP.NET Core MVC** estruturada para o gerenciamento de **Motoristas** e **Veículos**. A parte de "Motoristas" já está pronta e funcional, e o objetivo deste teste é que você use essa base para implementar a parte de "Veículos".
 
-* Implementar o CRUD completo de **Veiculos** em `Controllers/VeiculosController.cs`, seguindo o mesmo padrão implementado em `MotoristasController`.
-* Criar as Views em `Views/Carros` (`Index`, `Details`, `Create`, `Edit`, `Delete`), deixando tudo totalmente funcional.
+## Antes de começar (Leia com atenção)
+
+Sabemos que testes técnicos podem gerar ansiedade, então queremos deixar algumas coisas claras para você ficar tranquilo:
+
+1.  **Não buscamos a perfeição:** O principal objetivo aqui é entender como você raciocina e organiza seu código.
+2.  **Qualidade é melhor que quantidade:** Se o tempo estiver curto, não corra para entregar tudo de qualquer jeito. É melhor entregar uma funcionalidade bem feita e estável do que o projeto todo com erros.
+3.  **Não conseguiu terminar? Envie mesmo assim:** Avaliamos o seu esforço e o que foi produzido. Se travar em alguma etapa, faça até onde conseguir. Isso já nos ajuda a conhecer suas habilidades atuais.
+4.  **Use o código existente:** O CRUD de `Motoristas` está pronto justamente para servir de exemplo. Você pode (e deve) consultá-lo para entender como criar o de `Veiculos`.
+
+## O Objetivo
+
+Sua tarefa é usar o projeto atual para:
+
+* Implementar o CRUD completo de **Veiculos** no arquivo `Controllers/VeiculosController.cs`.
+* Criar as Views correspondentes na pasta `Views/Veiculos` (telas de `Index`, `Details`, `Create`, `Edit`, `Delete`).
+
+Tente seguir o mesmo padrão de organização e nomenclatura que já foi utilizado no controlador de Motoristas.
 
 ## Requisitos
 
-* **.NET SDK:** `9.0.x`
+* **.NET SDK:** Versão `9.0.x`
 * **Git** (para clonar o repositório)
-* IDE recomendada (opcional):
+* Sua IDE de preferência (Visual Studio, VS Code, Rider, etc.)
 
-  * Visual Studio
+## Passo a passo
 
-## Como baixar, rodar e editar o projeto
+Este repositório é público. Para começar:
 
-Este repositório é público e aceita contribuições via Pull Request.
+1.  Faça um **fork** deste repositório para o seu GitHub.
+2.  Clone o seu fork para sua máquina.
+3.  Rode o projeto antes de alterar qualquer coisa para garantir que tudo está funcionando.
+4.  Implemente as funcionalidades solicitadas.
+5.  Faça commits descritivos conforme for evoluindo o código.
 
-1. Faça um fork do repositório no GitHub.
-2. Clone o seu fork e crie uma nova branch.
-3. Rode o projeto localmente e verifique se está tudo OK.
-4. Implemente suas melhorias (ex.: CRUD de `Veiculos` + views em `Views/Veiculos`).
-5. Faça commits **descritivos** e envie as alterações para o seu fork.
-
-## Como entregar o resultado
+## Como entregar
 
 Você pode entregar de duas formas:
 
-1. Abra um Pull Request para a branch `main` deste repositório:
+1.  **Pull Request:** Abra um PR para a branch `main` do repositório original explicando brevemente o que foi feito.
+2.  **E-mail:** Envie o link do seu repositório para **ti@solutionmais.com.br**.
 
-   * Descreva o que foi feito.
+*Sinta-se à vontade para comentar no e-mail ou no PR sobre quaisquer dificuldades que teve ou decisões que tomou durante o desenvolvimento.*
 
-2. Envie o link do seu repositório com as edições por e-mail:
-
-   * Descreva o que foi feito.
-   * Envie para **[ti@solutionmais.com.br](mailto:ti@solutionmais.com.br)**
-
-## Rotas principais
+## Rotas principais da aplicação
 
 * Home: `/`
-* Motoristas: `/Motoristas`
-* Veiculos: `/Veiculos` (pendente)
+* Motoristas: `/Motoristas` (Exemplo para consulta)
+* Veículos: `/Veiculos` (Onde você vai trabalhar)
 
-## Observações
+## Observação
 
-* A persistência atual é **em memória** (os dados são perdidos ao reiniciar a aplicação).
+A persistência dos dados é feita **em memória** (listas estáticas). Isso significa que, se você reiniciar a aplicação, os dados cadastrados serão perdidos. Isso é o comportamento esperado para este teste, não se preocupe em configurar banco de dados.
+
+Boa sorte e bom trabalho!

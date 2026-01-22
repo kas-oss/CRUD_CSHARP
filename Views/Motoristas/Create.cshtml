@@ -27,6 +27,11 @@
                 <span asp-validation-for="Cnh" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="TipoCnh"></label>
+                <select asp-for="TipoCnh" class="form-control" asp-items="Html.GetEnumSelectList<TipoCnh>()"></select>
+                <span asp-validation-for="TipoCnh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Telefone"></label>
                 <input asp-for="Telefone" class="form-control" />
                 <span asp-validation-for="Telefone" class="text-danger"></span>

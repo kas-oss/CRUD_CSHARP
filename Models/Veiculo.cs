@@ -27,5 +27,8 @@ public class Veiculo
 
     [Required]
     public TipoCombustivel Combustivel { get; set; }
-}
 
+    [Range(1, int.MaxValue, ErrorMessage = "Selecione a categoria do veículo.")]
+    [Display(Name = "Categoria")]
+    public CategoriaVeiculo Categoria { get; set; } = CategoriaVeiculo.NaoInformada;
+}

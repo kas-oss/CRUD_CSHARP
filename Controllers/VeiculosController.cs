@@ -3,35 +3,40 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD_CSHARP.Controllers;
 
-public class CarrosController : Controller
+public class VeiculosController : Controller
 {
-    // EXPECTATIVA DO TESTE:
-    // - Implementar um CRUD completo para Veiculos, seguindo o mesmo padrão do MotoristasController.
-    // - Pode ser persistência em memória (List<Veiculo> estática) como Motoristas, ou outra estratégia do projeto.
-    // - Criar as Views em Views/Veiculos (Index, Details, Create, Edit, Delete).
-    //
-    // Dica: o objeto Veiculo já está modelado em Models/Veiculo.cs, você pode consultar o MotoristasController.cs para usar como referência.
+    // OBJETIVO DO DESAFIO:
+    // - Implementar um CRUD completo de Veiculos seguindo o mesmo padrao do MotoristasController.
+    // - Usar persistencia em memoria neste controller: List<Veiculo> estatica + geracao de Id (_nextId).
+    // - Criar as Views em Views/Veiculos: Index, Details, Create, Edit, Delete.
+    // - Respeitar as validacoes do modelo (DataAnnotations) e tratar casos de "nao encontrado" com NotFound().
 
     public IActionResult Index()
     {
-        // - Buscar/listar veiculos
-        // - Ordenar (ex.: por Marca/Modelo ou Placa)
-        // - Retornar View(lista)
+        // O que fazer:
+        // - Buscar/listar todos os veiculos persistidos (lista estatica).
+        // - Ordenar a lista (ex.: Marca, Modelo e/ou Placa) para manter consistencia na exibicao.
+        // - Retornar View(lista).
         throw new NotImplementedException();
     }
 
     public IActionResult Details(int id)
     {
-        // - Buscar veiculo por id
-        // - Se não existir, retornar NotFound()
-        // - Retornar View(veiculo)
+        // O que fazer:
+        // - Buscar o veiculo pelo id na lista estatica.
+        // - Se nao existir, retornar NotFound().
+        // - Retornar View(veiculo).
         throw new NotImplementedException();
     }
 
     public IActionResult Create()
     {
-        // - Retornar a tela de cadastro
-        // - (Opcional) Preparar dropdown de combustível (TipoCombustivel)
+        // O que fazer:
+        // - Retornar a tela de cadastro (View).
+        // - Na View, renderizar dropdowns para os enums do modelo:
+        //   - Combustivel (TipoCombustivel)
+        //   - Categoria (CategoriaVeiculo)
+        // - Garantir que o usuario consiga selecionar valores validos para ambos.
         throw new NotImplementedException();
     }
 
@@ -39,18 +44,20 @@ public class CarrosController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Create(Veiculo veiculo)
     {
-        // - Validar ModelState
-        // - Gerar Id (se usar lista em memória)
-        // - Persistir o veiculo
-        // - RedirectToAction(nameof(Index))
+        // O que fazer:
+        // - Validar ModelState; se invalido, retornar View(veiculo) para exibir os erros.
+        // - Gerar Id unico (incrementando um _nextId) e atribuir em veiculo.Id.
+        // - Persistir o veiculo (adicionar na lista estatica).
+        // - Redirecionar para Index (RedirectToAction(nameof(Index))).
         throw new NotImplementedException();
     }
 
     public IActionResult Edit(int id)
     {
-        // - Buscar veiculo por id
-        // - Se não existir, retornar NotFound()
-        // - Retornar View(veiculo)
+        // O que fazer:
+        // - Buscar o veiculo pelo id na lista estatica.
+        // - Se nao existir, retornar NotFound().
+        // - Retornar View(veiculo) para preencher o formulario.
         throw new NotImplementedException();
     }
 
@@ -58,18 +65,22 @@ public class CarrosController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Edit(int id, Veiculo veiculo)
     {
-        // - Validar se id == veiculo.Id (senão NotFound/BadRequest)
-        // - Validar ModelState
-        // - Atualizar dados do veiculo persistido
-        // - RedirectToAction(nameof(Index))
+        // O que fazer:
+        // - Validar se id == veiculo.Id; se nao, retornar NotFound().
+        // - Validar ModelState; se invalido, retornar View(veiculo) para exibir os erros.
+        // - Buscar o veiculo persistido pelo id; se nao existir, retornar NotFound().
+        // - Atualizar os campos do veiculo persistido:
+        //   Placa, Marca, Modelo, Ano, CapacidadeTanqueLitros, Combustivel, Categoria.
+        // - Redirecionar para Index (RedirectToAction(nameof(Index))).
         throw new NotImplementedException();
     }
 
     public IActionResult Delete(int id)
     {
-        // - Buscar veiculo por id
-        // - Se não existir, retornar NotFound()
-        // - Retornar View(veiculo) para confirmação
+        // O que fazer:
+        // - Buscar o veiculo pelo id na lista estatica.
+        // - Se nao existir, retornar NotFound().
+        // - Retornar View(veiculo) para confirmacao de exclusao.
         throw new NotImplementedException();
     }
 
@@ -77,9 +88,10 @@ public class CarrosController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Delete(int id, Veiculo veiculo)
     {
-        // - Remover o veiculo persistido pelo id
-        // - Se não existir, retornar NotFound()
-        // - RedirectToAction(nameof(Index))
+        // O que fazer:
+        // - Buscar o veiculo persistido pelo id; se nao existir, retornar NotFound().
+        // - Remover o item encontrado da lista estatica.
+        // - Redirecionar para Index (RedirectToAction(nameof(Index))).
         throw new NotImplementedException();
     }
 }

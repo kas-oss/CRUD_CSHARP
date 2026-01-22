@@ -13,6 +13,7 @@ public class MotoristasController : Controller
             Nome = "Ana Souza",
             Cpf = "123.456.789-00",
             Cnh = "CNH123456",
+            TipoCnh = TipoCnh.B,
             Telefone = "(11) 99999-0001",
             DataNascimento = new DateTime(1990, 5, 12)
         },
@@ -22,6 +23,7 @@ public class MotoristasController : Controller
             Nome = "Bruno Lima",
             Cpf = "987.654.321-00",
             Cnh = "CNH987654",
+            TipoCnh = TipoCnh.AB,
             Telefone = "(21) 98888-0002",
             DataNascimento = new DateTime(1985, 9, 3)
         }
@@ -99,6 +101,7 @@ public class MotoristasController : Controller
         existente.Nome = motorista.Nome;
         existente.Cpf = motorista.Cpf;
         existente.Cnh = motorista.Cnh;
+        existente.TipoCnh = motorista.TipoCnh;
         existente.Telefone = motorista.Telefone;
         existente.DataNascimento = motorista.DataNascimento;
 

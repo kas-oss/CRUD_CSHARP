@@ -21,6 +21,10 @@ public class Motorista
     [Display(Name = "Número da CNH")]
     public string Cnh { get; set; } = string.Empty;
 
+    [Range(1, int.MaxValue, ErrorMessage = "Selecione o tipo da CNH.")]
+    [Display(Name = "Tipo de CNH")]
+    public TipoCnh TipoCnh { get; set; } = TipoCnh.NaoInformada;
+
     [Phone]
     [StringLength(20)]
     [Display(Name = "Telefone / Celular")]
