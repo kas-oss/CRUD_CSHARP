@@ -1,0 +1,42 @@
+@model IEnumerable<CRUD_CSHARP.Models.Carro>
+@{
+    ViewData["Title"] = "Motoristas";
+}
+
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <h3 class="card-title">Lista de motoristas</h3>
+        <a class="btn btn-primary btn-sm" asp-action="Create">Novo motorista</a>
+    </div>
+    <div class="card-body table-responsive p-0">
+        <table class="table table-striped table-hover text-nowrap">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>CNH</th>
+                    <th>Telefone</th>
+                    <th>Data de nascimento</th>
+                    <th style="width: 160px;">Acoes</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Nome</td>
+                    <td>@item.Cpf</td>
+                    <td>@item.Cnh</td>
+                    <td>@item.Telefone</td>
+                    <td>@item.DataNascimento?.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <a class="btn btn-info btn-xs" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                        <a class="btn btn-warning btn-xs" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                        <a class="btn btn-danger btn-xs" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
