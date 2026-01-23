@@ -15,34 +15,32 @@ public class VeiculosController : Controller
 
     public IActionResult Details(int id)
     {
-        // O que fazer:
-        // - Buscar o veiculo pelo id na lista estatica.
-        // - Se nao existir, retornar NotFound().
-        // - Retornar View(veiculo).
-        throw new NotImplementedException();
+        var veiculo = Veiculos.FirstOrDefault(v => v.Id == id);
+
+        if (veiculo == null)
+        {
+            return NotFound();
+        }
+
+        return View(veiculo);
     }
 
     public IActionResult Create()
     {
-        // O que fazer:
-        // - Retornar a tela de cadastro (View).
-        // - Na View, renderizar dropdowns para os enums do modelo:
-        //   - Combustivel (TipoCombustivel)
-        //   - Categoria (CategoriaVeiculo)
-        // - Garantir que o usuario consiga selecionar valores validos para ambos.
-        throw new NotImplementedException();
+        return View();
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Create(Veiculo veiculo)
     {
-        // O que fazer:
-        // - Validar ModelState; se invalido, retornar View(veiculo) para exibir os erros.
-        // - Gerar Id unico (incrementando um _nextId) e atribuir em veiculo.Id.
-        // - Persistir o veiculo (adicionar na lista estatica).
-        // - Redirecionar para Index (RedirectToAction(nameof(Index))).
-        throw new NotImplementedException();
+        if (ModelState.IsValid)
+        {
+            veiculo.Id = _nextId++;
+            Veiculos.Add(veiculo);
+            return RedirectToAction(nameof(Index));
+        }
+        return View(veiculo);
     }
 
     public IActionResult Edit(int id)
