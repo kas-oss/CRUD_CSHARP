@@ -1,6 +1,6 @@
 # Desafio Técnico: CRUD C# (ASP.NET Core MVC)
 
-Olá, bem-vindo(a) ao nosso teste técnico.
+Olá, bem-vindo(a) ao nosso desafio técnico.
 
 Esta é uma aplicação web simples em **ASP.NET Core MVC** estruturada para o gerenciamento de **Motoristas** e **Veículos**. A parte de "Motoristas" já está pronta e funcional, e o objetivo deste teste é que você use essa base para implementar a parte de "Veículos".
 
@@ -26,7 +26,12 @@ Tente seguir o mesmo padrão de organização e nomenclatura que já foi utiliza
 
 * **.NET SDK:** Versão `9.0.x`
 * **Git** (para clonar o repositório)
-* Sua IDE de preferência (Visual Studio, VS Code, Rider, etc.)
+* Sua IDE de preferência (Visual Studio [recomendado], VS Code.)
+
+## Guia de instalação do projeto
+* Instale o Visual Studio (Essa é a melhor IDE para te ajudar a programar em C#): [Clique aqui para baixar](https://visualstudio.microsoft.com/pt-br/downloads/)
+* O projeto está em .NET 9.0.X, você precisará baixar e instalar o SDK, também: [Clique aqui para baixar](https://dotnet.microsoft.com/pt-br/download/dotnet/9.0)
+* Preparei um vídeo te mostrando como configurar o projeto no windows: Em breve estará aqui! [Clique aqui para assistir](https://lucasoss.com.br/)
 
 ## Passo a passo
 
