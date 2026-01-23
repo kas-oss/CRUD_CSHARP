@@ -75,21 +75,20 @@ public class VeiculosController : Controller
 
     public IActionResult Delete(int id)
     {
-        // O que fazer:
-        // - Buscar o veiculo pelo id na lista estatica.
-        // - Se nao existir, retornar NotFound().
-        // - Retornar View(veiculo) para confirmacao de exclusao.
-        throw new NotImplementedException();
+        var veiculo = Veiculos.FirstOrDefault(v => v.Id == id);
+        if (veiculo == null) return NotFound();
+        return View(veiculo);
     }
 
-    [HttpPost]
+    [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    public IActionResult Delete(int id, Veiculo veiculo)
+    public IActionResult DeleteConfirmado(int id)
     {
-        // O que fazer:
-        // - Buscar o veiculo persistido pelo id; se nao existir, retornar NotFound().
-        // - Remover o item encontrado da lista estatica.
-        // - Redirecionar para Index (RedirectToAction(nameof(Index))).
-        throw new NotImplementedException();
+       var veiculo = Veiculos.FirstOrDefault(v => v.Id == id);
+        if (veiculo != null)
+        {
+            Veiculos.Remove(veiculo);
+        }
+        return RedirectToAction(nameof(Index));
     }
 }
