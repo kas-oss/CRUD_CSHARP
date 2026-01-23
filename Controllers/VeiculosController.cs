@@ -5,19 +5,12 @@ namespace CRUD_CSHARP.Controllers;
 
 public class VeiculosController : Controller
 {
-    // OBJETIVO DO DESAFIO:
-    // - Implementar um CRUD completo de Veiculos seguindo o mesmo padrao do MotoristasController.
-    // - Usar persistencia em memoria neste controller: List<Veiculo> estatica + geracao de Id (_nextId).
-    // - Criar as Views em Views/Veiculos: Index, Details, Create, Edit, Delete.
-    // - Respeitar as validacoes do modelo (DataAnnotations) e tratar casos de "nao encontrado" com NotFound().
-
+    private static readonly List<Veiculo> Veiculos = new();
+    private static int _nextId = 1;
     public IActionResult Index()
     {
-        // O que fazer:
-        // - Buscar/listar todos os veiculos persistidos (lista estatica).
-        // - Ordenar a lista (ex.: Marca, Modelo e/ou Placa) para manter consistencia na exibicao.
-        // - Retornar View(lista).
-        throw new NotImplementedException();
+        var lista = Veiculos.OrderBy(V => V.Marca).ToList();
+        return View(lista);
     }
 
     public IActionResult Details(int id)
