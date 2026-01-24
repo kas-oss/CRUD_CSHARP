@@ -5,13 +5,39 @@ namespace CRUD_CSHARP.Controllers;
 
 public class VeiculosController : Controller
 {
-    // OBJETIVO DO DESAFIO:
-    // - Implementar um CRUD completo de Veiculos seguindo o mesmo padrao do MotoristasController.
-    // - Usar persistencia em memoria neste controller: List<Veiculo> estatica + geracao de Id (_nextId).
-    // - Criar as Views em Views/Veiculos: Index, Details, Create, Edit, Delete.
-    // - Respeitar as validacoes do modelo (DataAnnotations) e tratar casos de "nao encontrado" com NotFound().
+	// OBJETIVO DO DESAFIO:
+	// - Implementar um CRUD completo de Veiculos seguindo o mesmo padrao do MotoristasController.
+	// - Usar persistencia em memoria neste controller: List<Veiculo> estatica + geracao de Id (_nextId).
+	// - Criar as Views em Views/Veiculos: Index, Details, Create, Edit, Delete.
+	// - Respeitar as validacoes do modelo (DataAnnotations) e tratar casos de "nao encontrado" com NotFound().
 
-    public IActionResult Index()
+	private static readonly List<Veiculo> Veiculos = new()
+	{
+		new Veiculo
+		{
+			Id = 1,
+			Placa = "ABC1D34",
+			Marca = "VW",
+			Modelo = "Gol",
+			Ano = 2011,
+			CapacidadeTanqueLitros = 55,
+			Combustivel = TipoCombustivel.Gasolina,
+			Categoria = CategoriaVeiculo.VeiculoLeve
+		},
+		new Veiculo
+		{
+			Id = 2,
+			Placa = "EFG6H89",
+			Marca = "BYD",
+			Modelo = "Dolphin",
+			Ano = 2024,
+			CapacidadeTanqueLitros = 500,
+			Combustivel = TipoCombustivel.Eletrico,
+			Categoria = CategoriaVeiculo.VeiculoLeve
+		}
+	};
+
+	public IActionResult Index()
     {
         // O que fazer:
         // - Buscar/listar todos os veiculos persistidos (lista estatica).
