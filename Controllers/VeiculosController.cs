@@ -132,7 +132,15 @@ public class VeiculosController : Controller
         // - Buscar o veiculo pelo id na lista estatica.
         // - Se nao existir, retornar NotFound().
         // - Retornar View(veiculo) para confirmacao de exclusao.
-        throw new NotImplementedException();
+
+        var veiculo = Veiculos.FirstOrDefault(v => v.Id == id);
+
+        if (veiculo is null)
+        {
+            return NotFound();
+        }
+
+        return View(veiculo);
     }
 
     [HttpPost]
@@ -143,6 +151,17 @@ public class VeiculosController : Controller
         // - Buscar o veiculo persistido pelo id; se nao existir, retornar NotFound().
         // - Remover o item encontrado da lista estatica.
         // - Redirecionar para Index (RedirectToAction(nameof(Index))).
-        throw new NotImplementedException();
+
+        var existente = Veiculos.FirstOrDefault(v => v.Id == id);
+
+        if (existente is null)
+        {
+            return NotFound();
+        }
+
+        Veiculos.Remove(existente);
+
+        return RedirectToAction(nameof(Index));
+
     }
 }
