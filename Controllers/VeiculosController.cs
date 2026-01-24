@@ -37,13 +37,26 @@ public class VeiculosController : Controller
 		}
 	};
 
+	public static int _nextId = 3;
+
 	public IActionResult Index()
     {
-        // O que fazer:
-        // - Buscar/listar todos os veiculos persistidos (lista estatica).
-        // - Ordenar a lista (ex.: Marca, Modelo e/ou Placa) para manter consistencia na exibicao.
-        // - Retornar View(lista).
-        throw new NotImplementedException();
+		List<Veiculo> lista;
+		try
+		{
+			lista = Veiculos.OrderBy(x => x.Marca).ToList();
+		}
+		catch (Exception ex)
+		{
+			lista = Veiculos.OrderBy(x => x.Marca).ToList();
+		}
+
+		return View(lista);
+
+		// O que fazer:
+		// - Buscar/listar todos os veiculos persistidos (lista estatica).
+		// - Ordenar a lista (ex.: Marca, Modelo e/ou Placa) para manter consistencia na exibicao.
+		// - Retornar View(lista).
     }
 
     public IActionResult Details(int id)
