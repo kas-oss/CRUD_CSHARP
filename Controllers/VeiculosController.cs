@@ -26,7 +26,11 @@ public class VeiculosController : Controller
             Marca = "BYD",
             Modelo = "Dolphin Mini",
             Ano = 2025,
-            CapacidadeTanqueLitros = 0,
+
+            // Carros eletricos não possuem tanque de combustivel
+            // Para respeitar a validacao do model (> 10),
+            // Irei considerar a capacidade do tanque de veiculos eletricos como KWh da bateria
+            CapacidadeTanqueLitros = 38,
             Combustivel = TipoCombustivel.Eletrico,
             Categoria = CategoriaVeiculo.VeiculoLeve
         },
