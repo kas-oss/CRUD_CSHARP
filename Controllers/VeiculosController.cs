@@ -82,25 +82,34 @@ public class VeiculosController : Controller
 
     public IActionResult Create()
     {
-        // O que fazer:
-        // - Retornar a tela de cadastro (View).
-        // - Na View, renderizar dropdowns para os enums do modelo:
-        //   - Combustivel (TipoCombustivel)
-        //   - Categoria (CategoriaVeiculo)
-        // - Garantir que o usuario consiga selecionar valores validos para ambos.
-        throw new NotImplementedException();
+		return View();
+
+		// O que fazer:
+		// - Retornar a tela de cadastro (View). (Feito)
+		// - Na View, renderizar dropdowns para os enums do modelo:
+		//   - Combustivel (TipoCombustivel)
+		//   - Categoria (CategoriaVeiculo)
+		// - Garantir que o usuario consiga selecionar valores validos para ambos.
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Create(Veiculo veiculo)
     {
-        // O que fazer:
-        // - Validar ModelState; se invalido, retornar View(veiculo) para exibir os erros.
-        // - Gerar Id unico (incrementando um _nextId) e atribuir em veiculo.Id.
-        // - Persistir o veiculo (adicionar na lista estatica).
-        // - Redirecionar para Index (RedirectToAction(nameof(Index))).
-        throw new NotImplementedException();
+		if (!ModelState.IsValid)
+		{
+			return View(veiculo);
+		}
+
+		veiculo.Id = _nextId++;
+		Veiculos.Add(veiculo);
+
+		return RedirectToAction(nameof(Index));
+		// O que fazer:
+		// - Validar ModelState; se invalido, retornar View(veiculo) para exibir os erros. (Feito)
+		// - Gerar Id unico (incrementando um _nextId) e atribuir em veiculo.Id. (Feito)
+		// - Persistir o veiculo (adicionar na lista estatica). (Feito)
+		// - Redirecionar para Index (RedirectToAction(nameof(Index))). (Feito)
     }
 
     public IActionResult Edit(int id)
