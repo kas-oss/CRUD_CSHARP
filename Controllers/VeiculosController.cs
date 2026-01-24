@@ -13,7 +13,7 @@ public class VeiculosController : Controller
 	// Comentários adicionais: Segui o mesmo padrão, mas poderia aplicar alguns principios de SOLID para evitar que a classe VeiculosController
 	// e MotoristasController tenha muitas responsabilidades (Sugestão).
 	// Utilizei da lista estática em memoria, mas pretendia fazer teste em um banco, a exemplo do SQLite, pra testar scriptsql,
-	// porém fiquei com recebio de sair do escopo do teste.
+	// porém fiquei com receio de sair do escopo do teste.
 	// Tentei respeitar todas as exigências do teste e dos requisitos pedidos, sem sair do escopo. Grato pelas orientações.
 
 	private static readonly List<Veiculo> Veiculos = new()
