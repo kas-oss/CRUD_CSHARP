@@ -57,7 +57,10 @@ public class VeiculosController : Controller
         // - Buscar/listar todos os veiculos persistidos (lista estatica).
         // - Ordenar a lista (ex.: Marca, Modelo e/ou Placa) para manter consistencia na exibicao.
         // - Retornar View(lista).
-        throw new NotImplementedException();
+
+        var lista = Veiculos.OrderBy(v => v.Placa).ToList();
+
+        return View(lista);
     }
 
     public IActionResult Details(int id)
