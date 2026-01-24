@@ -69,7 +69,15 @@ public class VeiculosController : Controller
         // - Buscar o veiculo pelo id na lista estatica.
         // - Se nao existir, retornar NotFound().
         // - Retornar View(veiculo).
-        throw new NotImplementedException();
+
+        var veiculo = Veiculos.FirstOrDefault(v => v.Id == id);
+
+        if (veiculo is null)
+        {
+            return NotFound();
+        }
+
+        return View(veiculo);
     }
 
     public IActionResult Create()
