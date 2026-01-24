@@ -5,6 +5,46 @@ namespace CRUD_CSHARP.Controllers;
 
 public class VeiculosController : Controller
 {
+
+    public static readonly List<Veiculo> Veiculos = new()
+    {
+        new Veiculo
+        {
+            Id = 1,
+            Placa = "ABC-0000",
+            Marca = "Volkswagen",
+            Modelo = "Taos",
+            Ano = 2026,
+            CapacidadeTanqueLitros = 48,
+            Combustivel = TipoCombustivel.Gasolina,
+            Categoria = CategoriaVeiculo.VeiculoLeve
+        },
+        new Veiculo
+        {
+            Id = 2,
+            Placa = "ABC-0001",
+            Marca = "BYD",
+            Modelo = "Dolphin Mini",
+            Ano = 2025,
+            CapacidadeTanqueLitros = 0,
+            Combustivel = TipoCombustivel.Eletrico,
+            Categoria = CategoriaVeiculo.VeiculoLeve
+        },
+        new Veiculo
+        {
+            Id = 3,
+            Placa = "ABC-0002",
+            Marca = "Ford",
+            Modelo = "Ranger",
+            Ano = 2020,
+            CapacidadeTanqueLitros = 80,
+            Combustivel = TipoCombustivel.Diesel,
+            Categoria = CategoriaVeiculo.VeiculoLeve
+        }
+    };
+
+    public static int _nextId = 4;
+
     // OBJETIVO DO DESAFIO:
     // - Implementar um CRUD completo de Veiculos seguindo o mesmo padrao do MotoristasController.
     // - Usar persistencia em memoria neste controller: List<Veiculo> estatica + geracao de Id (_nextId).
