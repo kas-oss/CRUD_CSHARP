@@ -11,13 +11,44 @@ public class VeiculosController : Controller
     // - Criar as Views em Views/Veiculos: Index, Details, Create, Edit, Delete.
     // - Respeitar as validacoes do modelo (DataAnnotations) e tratar casos de "nao encontrado" com NotFound().
 
+    private static readonly List<Veiculo> Veiculos = new()
+    {
+        new Veiculo
+        {
+            Id = 1,
+            Placa = "ABC1234",
+            Marca = "Chevrolet",
+            Modelo = "Onix",
+            Ano = 2020,
+            CapacidadeTanqueLitros = 44,
+            Combustivel = TipoCombustivel.Gasolina,
+            Categoria = CategoriaVeiculo.VeiculoLeve
+        },
+        new Veiculo
+        {
+            Id = 2,
+            Placa = "DEF5678",
+            Marca = "Toyota",
+            Modelo = "Corolla",
+            Ano = 2022,
+            CapacidadeTanqueLitros = 50,
+            Combustivel = TipoCombustivel.Gasolina,
+            Categoria = CategoriaVeiculo.VeiculoLeve
+        }
+    };
+
+    private static int _nextId = 3;
+
     public IActionResult Index()
     {
-        // O que fazer:
-        // - Buscar/listar todos os veiculos persistidos (lista estatica).
-        // - Ordenar a lista (ex.: Marca, Modelo e/ou Placa) para manter consistencia na exibicao.
-        // - Retornar View(lista).
-        throw new NotImplementedException();
+        var lista = Veiculos
+        .OrderBy(v => v.Marca)
+        .ThenBy(v => v.Modelo)
+        .ThenBy(v => v.Ano)
+        .ThenBy(v => v.Placa)
+        .ToList();
+        
+        return View(lista);
     }
 
     public IActionResult Details(int id)
