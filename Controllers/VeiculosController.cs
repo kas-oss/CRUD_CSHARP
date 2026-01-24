@@ -44,22 +44,26 @@ public class VeiculosController : Controller
 		List<Veiculo> lista;
 		try
 		{
-			lista = Veiculos.OrderBy(x => x.Marca).ToList();
+			lista = Veiculos.OrderBy(x => x.Marca).ToList(); // Retorna os dados do banco, por exemplo.
 		}
 		catch (Exception ex)
 		{
-			lista = Veiculos.OrderBy(x => x.Marca).ToList();
+			// _logger.LogError(ex, "Error simulado"); // Simulando um log de error pra armazenar a informação do error que aconteceu.
+			lista = Veiculos.OrderBy(x => x.Marca).ToList(); // Nesse catch retornaria o status de error, por exemplo.
 		}
 
 		return View(lista);
 
 		// O que fazer:
-		// - Buscar/listar todos os veiculos persistidos (lista estatica).
-		// - Ordenar a lista (ex.: Marca, Modelo e/ou Placa) para manter consistencia na exibicao.
-		// - Retornar View(lista).
-    }
+		// - Buscar/listar todos os veiculos persistidos (lista estatica). (Feito)
+		// - Ordenar a lista (ex.: Marca, Modelo e/ou Placa) para manter consistencia na exibicao. (Feito)
+		// - Retornar View(lista). (Feito)
+		// Comentários adicionais:
+		// Utilizei do try/catch para simular como seria a aplicação em produção, quando tenta acessar servidores ou banco de dados, 
+        // caso não houvesse comunicação com um dos dois, lançaria a exceção.
+	}
 
-    public IActionResult Details(int id)
+	public IActionResult Details(int id)
     {
         // O que fazer:
         // - Buscar o veiculo pelo id na lista estatica.
