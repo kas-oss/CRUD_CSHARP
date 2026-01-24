@@ -88,7 +88,9 @@ public class VeiculosController : Controller
         //   - Combustivel (TipoCombustivel)
         //   - Categoria (CategoriaVeiculo)
         // - Garantir que o usuario consiga selecionar valores validos para ambos.
-        throw new NotImplementedException();
+
+        return View();
+
     }
 
     [HttpPost]
@@ -100,7 +102,17 @@ public class VeiculosController : Controller
         // - Gerar Id unico (incrementando um _nextId) e atribuir em veiculo.Id.
         // - Persistir o veiculo (adicionar na lista estatica).
         // - Redirecionar para Index (RedirectToAction(nameof(Index))).
-        throw new NotImplementedException();
+
+        if (!ModelState.IsValid)
+        {
+            return View(veiculo);
+        }
+
+        veiculo.Id = _nextId++;
+
+        Veiculos.Add(veiculo);
+
+        return RedirectToAction(nameof(Index));
     }
 
     public IActionResult Edit(int id)
