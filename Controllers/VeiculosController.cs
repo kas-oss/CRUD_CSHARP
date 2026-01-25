@@ -1,3 +1,4 @@
+
 using CRUD_CSHARP.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,13 +12,42 @@ public class VeiculosController : Controller
     // - Criar as Views em Views/Veiculos: Index, Details, Create, Edit, Delete.
     // - Respeitar as validacoes do modelo (DataAnnotations) e tratar casos de "nao encontrado" com NotFound().
 
+    private static readonly List<Veiculo> veiculos = new()
+    {
+        new Veiculo
+        {
+            Id = 1,
+            Placa = "ABC1C34",
+            Marca = "Fiat",
+            Modelo = "Cronos",
+            Ano = 2026,
+            CapacidadeTanqueLitros = 48,
+            Combustivel = TipoCombustivel.Gasolina,
+            Categoria = CategoriaVeiculo.VeiculoLeve
+        },
+        new Veiculo
+        {
+            Id = 2,
+            Placa = "KJU1C52",
+            Marca = "Fiat",
+            Modelo = "Mobi",
+            Ano = 2026,
+            CapacidadeTanqueLitros = 40,
+            Combustivel = TipoCombustivel.Gasolina,
+            Categoria = CategoriaVeiculo.VeiculoLeve
+        }
+    };
+
+    private static int _nextId = 3;
+
     public IActionResult Index()
     {
         // O que fazer:
         // - Buscar/listar todos os veiculos persistidos (lista estatica).
         // - Ordenar a lista (ex.: Marca, Modelo e/ou Placa) para manter consistencia na exibicao.
         // - Retornar View(lista).
-        throw new NotImplementedException();
+        var lista = veiculos.OrderBy(veiculo => veiculo.Modelo).ToList();
+        return View(lista);
     }
 
     public IActionResult Details(int id)
