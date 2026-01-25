@@ -1,4 +1,4 @@
-using CRUD_CSHARP.Models;
+using CRUD_CSHARP.Models.Veiculos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD_CSHARP.Controllers;
