@@ -1,0 +1,41 @@
+@model CRUD_CSHARP.Models.Veiculo
+
+@{
+    ViewData["Title"] = "Excluir Veículo";
+}
+
+<div class="container mt-5">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Atenção!</h4>
+        <p>Tem certeza que deseja excluir este veículo? Esta ação não pode ser desfeita.</p>
+    </div>
+
+    <div class="card shadow-sm border-danger">
+        <div class="card-header bg-danger text-white">
+            <h5 class="mb-0">Excluir @Model.Modelo - @Model.Placa</h5>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Modelo)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Modelo)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Marca)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Marca)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Placa)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Placa)</dd>
+                
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Categoria)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Categoria)</dd>
+            </dl>
+            
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <div class="d-flex justify-content-end gap-2">
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                    <input type="submit" value="Confirmar Exclusão" class="btn btn-danger" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
