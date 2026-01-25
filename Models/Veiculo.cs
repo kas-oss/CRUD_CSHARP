@@ -8,6 +8,7 @@ public class Veiculo
 
     [Required]
     [StringLength(8, MinimumLength = 7)]
+    [RegularExpression (@"^[a-zA-Z]{3}-?[0-9][A-Za-z0-9][0-9]{2}$", ErrorMessage = "Formato inválido. Use o padrão (ABC-1234) ou Mercosul (ABC1D23).")] // Required adicional criado buscando garantir o formato da placa
     public string Placa { get; set; } = string.Empty;
 
     [Required]
