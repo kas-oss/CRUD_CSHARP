@@ -30,7 +30,16 @@
                     <td>@item.Marca</td>
                     <td>@item.Modelo</td>
                     <td>@item.Ano</td>
-                    <td>@item.CapacidadeTanqueLitros</td>
+                    <td>@item.CapacidadeTanqueLitros
+
+                        @if (item.Combustivel == TipoCombustivel.Eletrico) {
+                            <span> kWh </span>
+                        } else {
+                            <span> litros </span>
+                        }
+
+
+                    </td>
                     <td>@item.Combustivel</td>
                     <td>@item.Categoria</td>
                     <td>

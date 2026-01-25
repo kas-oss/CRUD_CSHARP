@@ -32,7 +32,9 @@
                 <span asp-validation-for="Ano" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CapacidadeTanqueLitros"></label>
+                <label asp-for="CapacidadeTanqueLitros">
+                    Capacidade do tanque <span id="unidade-medida-span"></span>
+                </label>
 
                 @* 
                 Durante testes percebi que o input não estava aceitando valores decimais, nem usando virgula nem ponto EX 48.00 ou 48,00
@@ -46,7 +48,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Combustivel"></label>
-                <select asp-for="Combustivel" class="form-control" asp-items="Html.GetEnumSelectList<TipoCombustivel>()"></select>
+                <select asp-for="Combustivel" class="form-control" asp-items="Html.GetEnumSelectList<TipoCombustivel>()" id="combustivel-select"></select>
                 <span asp-validation-for="Combustivel" class="text-danger"></span>
             </div>
 
@@ -65,5 +67,30 @@
 </div>
 
 @section Scripts {
+
+     <script>
+        const combustivelSelect = document.getElementById('combustivel-select');
+        const unidadeMedidaSpan = document.getElementById('unidade-medida-span');
+
+        function atualizarUnidadeMedidaSpan() {
+
+            const selectedValue = combustivelSelect.value;
+
+            switch (selectedValue) {
+                case '@((int)TipoCombustivel.Eletrico)':
+                    unidadeMedidaSpan.textContent = '(kWh)';
+                    break;
+                default:
+                    unidadeMedidaSpan.textContent = '(litros)';
+            }
+
+        }
+
+        combustivelSelect.addEventListener('change', atualizarUnidadeMedidaSpan);
+
+        atualizarUnidadeMedidaSpan();
+        
+    </script>
+
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

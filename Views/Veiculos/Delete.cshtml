@@ -24,7 +24,15 @@
             <dd class="col-sm-9">@Model.Ano</dd>
 
             <dt class="col-sm-3">Capacidade do Tanque</dt>
-            <dd class="col-sm-9">@Model.CapacidadeTanqueLitros litros</dd>
+            <dd class="col-sm-9">@Model.CapacidadeTanqueLitros 
+
+                @if (Model.Combustivel == TipoCombustivel.Eletrico) {
+                    <span> kWh </span>
+                } else {
+                    <span> litros </span>
+                }
+
+            </dd>
 
             <dt class="col-sm-3">Tipo de Combustível</dt>
             <dd class="col-sm-9">@Model.Combustivel</dd>
