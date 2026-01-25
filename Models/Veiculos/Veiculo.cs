@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace CRUD_CSHARP.Models;
+namespace CRUD_CSHARP.Models.Veiculos;
 
 public class Veiculo
 {

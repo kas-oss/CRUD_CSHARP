@@ -1,4 +1,4 @@
-namespace CRUD_CSHARP.Models;
+namespace CRUD_CSHARP.Models.Veiculos;
 
 public enum TipoCombustivel
 {
