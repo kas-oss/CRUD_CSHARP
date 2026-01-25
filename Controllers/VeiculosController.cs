@@ -5,12 +5,6 @@ namespace CRUD_CSHARP.Controllers;
 
 public class VeiculosController : Controller
 {
-    // OBJETIVO DO DESAFIO:
-    // - Implementar um CRUD completo de Veiculos seguindo o mesmo padrao do MotoristasController.
-    // - Usar persistencia em memoria neste controller: List<Veiculo> estatica + geracao de Id (_nextId).
-    // - Criar as Views em Views/Veiculos: Index, Details, Create, Edit, Delete.
-    // - Respeitar as validacoes do modelo (DataAnnotations) e tratar casos de "nao encontrado" com NotFound().
-
     private static readonly List<Veiculo> Veiculos = new()
     {
         new Veiculo
@@ -125,21 +119,26 @@ public class VeiculosController : Controller
 
     public IActionResult Delete(int id)
     {
-        // O que fazer:
-        // - Buscar o veiculo pelo id na lista estatica.
-        // - Se nao existir, retornar NotFound().
-        // - Retornar View(veiculo) para confirmacao de exclusao.
-        throw new NotImplementedException();
+       var veiculo = Veiculos.FirstOrDefault(v => v.Id == id);
+        if (veiculo is null)
+        {
+            return NotFound();
+        }
+
+        return View(veiculo);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Delete(int id, Veiculo veiculo)
     {
-        // O que fazer:
-        // - Buscar o veiculo persistido pelo id; se nao existir, retornar NotFound().
-        // - Remover o item encontrado da lista estatica.
-        // - Redirecionar para Index (RedirectToAction(nameof(Index))).
-        throw new NotImplementedException();
+        var existente = Veiculos.FirstOrDefault(v => v.Id == id);
+        if (existente is null)
+        {
+            return NotFound();
+        }
+
+        Veiculos.Remove(existente);
+        return RedirectToAction(nameof(Index));
     }
 }
