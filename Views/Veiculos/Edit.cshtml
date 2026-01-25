@@ -34,7 +34,16 @@
             </div>
             <div class="form-group">
                 <label asp-for="CapacidadeTanqueLitros"></label>
-                <input asp-for="CapacidadeTanqueLitros" class="form-control"/>
+
+                @* 
+                Durante testes percebi que o input estava sendo carregado com um valor decimal EX: 48,00, 
+                más não estava aceitando ser salvo com um valor decimal, nem usando virgula nem ponto EX 48.00 
+
+                Apesar de tanques de combustivel geralmente serem medidos em litros inteiros, como o Model usa o tipo decimal 
+                decidi corrigir a logica do lado do frontend para aceitar valores decimais, usando step="0.01" no input type="number"
+                *@
+
+                <input asp-for="CapacidadeTanqueLitros" class="form-control" type="number" step="0.01" />
                 <span asp-validation-for="CapacidadeTanqueLitros" class="text-danger"></span>
             </div>
             <div class="form-group">
