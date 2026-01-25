@@ -42,10 +42,6 @@ public class VeiculosController : Controller
 
     public IActionResult Index()
     {
-        // O que fazer:
-        // - Buscar/listar todos os veiculos persistidos (lista estatica).
-        // - Ordenar a lista (ex.: Marca, Modelo e/ou Placa) para manter consistencia na exibicao.
-        // - Retornar View(lista).
         var lista = veiculos.OrderBy(veiculo => veiculo.Modelo).ToList();
         return View(lista);
     }
@@ -56,7 +52,14 @@ public class VeiculosController : Controller
         // - Buscar o veiculo pelo id na lista estatica.
         // - Se nao existir, retornar NotFound().
         // - Retornar View(veiculo).
-        throw new NotImplementedException();
+       
+        var veiculo = veiculos.FirstOrDefault(m => m.Id == id);
+        if (veiculo is null)
+        {
+            return NotFound();
+        }
+
+        return View(veiculo);
     }
 
     public IActionResult Create()
