@@ -33,6 +33,8 @@ public class VeiculosController : Controller
 
     private static int _nextId = 3;
 
+    private Veiculo? ObterVeiculo(int id) => Veiculos.FirstOrDefault(v => v.Id == id);
+
     public IActionResult Index()
     {
         var lista = Veiculos
@@ -47,7 +49,7 @@ public class VeiculosController : Controller
 
     public IActionResult Details(int id)
     {
-        var veiculo = Veiculos.FirstOrDefault(m => m.Id == id);
+        var veiculo = ObterVeiculo(id);
         if (veiculo is null)
         {
             return NotFound();
@@ -65,7 +67,7 @@ public class VeiculosController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Create(Veiculo veiculo)
     {
-         if (!ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
             return View(veiculo);
         }
@@ -77,7 +79,7 @@ public class VeiculosController : Controller
 
     public IActionResult Edit(int id)
     {
-        var veiculo = Veiculos.FirstOrDefault(v => v.Id == id);
+        var veiculo = ObterVeiculo(id);
         if (veiculo is null)
         {
             return NotFound();
@@ -100,26 +102,26 @@ public class VeiculosController : Controller
             return View(veiculo);
         }
 
-        var existente = Veiculos.FirstOrDefault(v => v.Id == id);
-        if (existente is null)
+        var veiculoExistente = ObterVeiculo(id);
+        if (veiculoExistente is null)
         {
             return NotFound();
         }
 
-        existente.Marca = veiculo.Marca;
-        existente.Modelo = veiculo.Modelo;
-        existente.Ano = veiculo.Ano;
-        existente.Placa = veiculo.Placa;
-        existente.CapacidadeTanqueLitros = veiculo.CapacidadeTanqueLitros;
-        existente.Combustivel = veiculo.Combustivel;
-        existente.Categoria = veiculo.Categoria;
+        veiculoExistente.Marca = veiculo.Marca;
+        veiculoExistente.Modelo = veiculo.Modelo;
+        veiculoExistente.Ano = veiculo.Ano;
+        veiculoExistente.Placa = veiculo.Placa;
+        veiculoExistente.CapacidadeTanqueLitros = veiculo.CapacidadeTanqueLitros;
+        veiculoExistente.Combustivel = veiculo.Combustivel;
+        veiculoExistente.Categoria = veiculo.Categoria;
 
         return RedirectToAction(nameof(Index));
     }
 
     public IActionResult Delete(int id)
     {
-       var veiculo = Veiculos.FirstOrDefault(v => v.Id == id);
+        var veiculo = ObterVeiculo(id);
         if (veiculo is null)
         {
             return NotFound();
@@ -132,13 +134,13 @@ public class VeiculosController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Delete(int id, Veiculo veiculo)
     {
-        var existente = Veiculos.FirstOrDefault(v => v.Id == id);
-        if (existente is null)
+        var veiculoExistente = ObterVeiculo(id);
+        if (veiculoExistente is null)
         {
             return NotFound();
         }
 
-        Veiculos.Remove(existente);
+        Veiculos.Remove(veiculoExistente);
         return RedirectToAction(nameof(Index));
     }
 }

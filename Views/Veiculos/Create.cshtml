@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Ano"></label>
-                <input asp-for="Ano" class="form-control"/>
+                <input asp-for="Ano" class="form-control" />
                 <span asp-validation-for="Ano" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -33,17 +33,19 @@
             </div>
             <div class="form-group">
                 <label asp-for="Combustivel"></label>
-                <select asp-for="Combustivel" class="form-control" asp-items="Html.GetEnumSelectList<TipoCombustivel>()"></select>
+                <select asp-for="Combustivel" class="form-control"
+                    asp-items="Html.GetEnumSelectList<TipoCombustivel>()"></select>
                 <span asp-validation-for="Combustivel" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CapacidadeTanqueLitros"></label>
-                <input asp-for="CapacidadeTanqueLitros" class="form-control" />
+                <input asp-for="CapacidadeTanqueLitros" class="form-control" type="number" step="0.01" />
                 <span asp-validation-for="CapacidadeTanqueLitros" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Categoria"></label>
-                <select asp-for="Categoria" class="form-control" asp-items="Html.GetEnumSelectList<CategoriaVeiculo>()"></select>
+                <select asp-for="Categoria" class="form-control"
+                    asp-items="Html.GetEnumSelectList<CategoriaVeiculo>()"></select>
                 <span asp-validation-for="Categoria" class="text-danger"></span>
             </div>
         </div>
@@ -55,5 +57,7 @@
 </div>
 
 @section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
