@@ -47,17 +47,20 @@ public class VeiculosController : Controller
         .ThenBy(v => v.Ano)
         .ThenBy(v => v.Placa)
         .ToList();
-        
+
         return View(lista);
     }
 
     public IActionResult Details(int id)
     {
-        // O que fazer:
-        // - Buscar o veiculo pelo id na lista estatica.
-        // - Se nao existir, retornar NotFound().
-        // - Retornar View(veiculo).
-        throw new NotImplementedException();
+        var veiculo = Veiculos.FirstOrDefault(m => m.Id == id);
+
+        if (veiculo is null)
+        {
+            return NotFound();
+        }
+
+        return View(veiculo);
     }
 
     public IActionResult Create()
