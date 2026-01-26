@@ -1,0 +1,41 @@
+@model CRUD_CSHARP.Models.Veiculo
+
+@{
+    ViewData["Title"] = "Detalhes do Veículo";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0">Detalhes: @Model.Modelo</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Id)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Id)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Modelo)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Modelo)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Marca)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Marca)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Placa)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Placa)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Ano)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Ano)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Combustivel)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Combustivel)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Categoria)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Categoria)</dd>
+            </dl>
+        </div>
+        <div class="card-footer d-flex justify-content-end gap-2">
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Editar</a>
+            <a asp-action="Index" class="btn btn-secondary">Voltar para a Lista</a>
+        </div>
+    </div>
+</div>

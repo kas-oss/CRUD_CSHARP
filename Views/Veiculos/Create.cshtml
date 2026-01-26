@@ -1,0 +1,88 @@
+@model CRUD_CSHARP.Models.Veiculo
+@using CRUD_CSHARP.Models
+
+@{
+    ViewData["Title"] = "Cadastrar Veículo";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Novo Veículo</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Modelo" class="control-label fw-bold"></label>
+                                <input asp-for="Modelo" class="form-control" placeholder="Ex: Uno Mille" />
+                                <span asp-validation-for="Modelo" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Marca" class="control-label fw-bold"></label>
+                                <input asp-for="Marca" class="form-control" placeholder="Ex: Fiat" />
+                                <span asp-validation-for="Marca" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Placa" class="control-label fw-bold"></label>
+                                <input asp-for="Placa" class="form-control" placeholder="ABC1234" />
+                                <span asp-validation-for="Placa" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Ano" class="control-label fw-bold"></label>
+                                <input asp-for="Ano" class="form-control" />
+                                <span asp-validation-for="Ano" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="CapacidadeTanqueLitros" class="control-label fw-bold"></label>
+                                <input asp-for="CapacidadeTanqueLitros" class="form-control" type="number" />
+                                <span asp-validation-for="CapacidadeTanqueLitros" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Combustivel" class="control-label fw-bold"></label>
+                                <select asp-for="Combustivel" class="form-control" 
+                                        asp-items="Html.GetEnumSelectList<TipoCombustivel>()">
+                                    <option value="">-- Selecione --</option>
+                                </select>
+                                <span asp-validation-for="Combustivel" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Categoria" class="control-label fw-bold"></label>
+                                <select asp-for="Categoria" class="form-control" 
+                                        asp-items="Html.GetEnumSelectList<CategoriaVeiculo>()">
+                                    <option value="">-- Selecione --</option>
+                                </select>
+                                <span asp-validation-for="Categoria" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <hr />
+                        
+                        <div class="d-flex justify-content-end gap-2">
+                            <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+                            <input type="submit" value="Salvar Veículo" class="btn btn-success" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
