@@ -141,7 +141,7 @@ public class VeiculosController : Controller
         }
         
         var existente = Veiculos.FirstOrDefault(v => v.Id == veiculo.Id);
-        if (existente != null)
+        if (existente is null)
         {
             return NotFound();
         }
