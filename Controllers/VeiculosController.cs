@@ -48,8 +48,10 @@ public class VeiculosController : Controller
         {
             veiculo.Id = _nextId++;
             _veiculos.Add(veiculo);
+            TempData["SuccessMessage"] = "Cadastro realizado com sucesso!";
             return RedirectToAction(nameof(Index));
         }
+
         
         return View(veiculo);
     }
@@ -92,6 +94,7 @@ public class VeiculosController : Controller
             veiculoEx.CapacidadeTanqueLitros = veiculo.CapacidadeTanqueLitros;
             veiculoEx.Combustivel = veiculo.Combustivel;
             veiculoEx.Categoria = veiculo.Categoria;
+            TempData["SuccessMessage"] = "Edição realizada com sucesso!";
             return (RedirectToAction(nameof(Index)));
         }
         
@@ -124,6 +127,7 @@ public class VeiculosController : Controller
             return NotFound();
         }
         _veiculos.Remove(veiculo);
+        TempData["SuccessMessage"] = "Cadastro deletado com sucesso!";
         return (RedirectToAction(nameof(Index)));
     }
 }
