@@ -1,6 +1,5 @@
 using CRUD_CSHARP.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace CRUD_CSHARP.Controllers;
 
