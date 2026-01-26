@@ -23,7 +23,7 @@ public class Veiculo
 
     [Required]
     [Range(10, 1000)]
-    public decimal CapacidadeTanqueLitros { get; set; }
+    public int? CapacidadeTanqueLitros { get; set; }
 
     [Required]
     public TipoCombustivel Combustivel { get; set; }
