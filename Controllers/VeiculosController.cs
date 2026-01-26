@@ -121,12 +121,12 @@ public class VeiculosController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Delete(int id, Veiculo veiculo)
     {
-        var veiculoEx = _veiculos.FirstOrDefault(v => v.Id == id);
-        if(veiculo == null)
+        var veiculoDel = _veiculos.FirstOrDefault(v => v.Id == id);
+        if(veiculoDel == null)
         {
             return NotFound();
         }
-        _veiculos.Remove(veiculo);
+        _veiculos.Remove(veiculoDel);
         TempData["SuccessMessage"] = "Cadastro deletado com sucesso!";
         return (RedirectToAction(nameof(Index)));
     }
