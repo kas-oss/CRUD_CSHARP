@@ -1,0 +1,46 @@
+@model CRUD_CSHARP.Models.Veiculo
+
+@{
+    ViewData["Title"] = "Excluir veículo";
+}
+
+<div class="card card-danger">
+    <div class="card-header">
+        <h3 class="card-title">Confirmar exclusao</h3>
+    </div>
+
+    <div class="card-body">
+        <p>Tem certeza que deseja excluir este veículo?</p>
+
+        <dl class="row">
+            <dt class="col-sm-3">Placa</dt>
+            <dd class="col-sm-9">@Model.Placa</dd>
+
+            <dt class="col-sm-3">Marca</dt>
+            <dd class="col-sm-9">@Model.Marca</dd>
+
+            <dt class="col-sm-3">Modelo</dt>
+            <dd class="col-sm-9">@Model.Modelo</dd>
+
+            <dt class="col-sm-3">Ano</dt>
+            <dd class="col-sm-9">@Model.Ano</dd>
+
+            <dt class="col-sm-3">Capacidade do tanque</dt>
+            <dd class="col-sm-9">@Model.CapacidadeTanqueLitros</dd>
+
+            <dt class="col-sm-3">Combustível</dt>
+            <dd class="col-sm-9">@Model.Combustivel</dd>
+
+            <dt class="col-sm-3">Categoria</dt>
+            <dd class="col-sm-9">@Model.Categoria</dd>
+        </dl>
+    </div>
+
+    <div class="card-footer">
+        <form asp-action="Delete" method="post" class="d-inline">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Excluir</button>
+        </form>
+        <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+    </div>
+</div>
