@@ -16,7 +16,7 @@ public class VeiculosController : Controller
             Ano = 2024,
             CapacidadeTanqueLitros = 320,
             Combustivel = TipoCombustivel.Gasolina,
-            Categoria = CategoriaVeiculo.VeiculoLeve
+            Categoria = CategoriaVeiculo.Onibus
         },
         new Veiculo
         {
