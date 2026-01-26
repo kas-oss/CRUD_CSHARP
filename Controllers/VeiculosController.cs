@@ -13,9 +13,21 @@ public class VeiculosController : Controller
     private static int _nextId = 1;
 
     // Listagem
-    public IActionResult Index()
+    public IActionResult Index(String Busca)
     {
-        return View(_veiculos);
+        var listaFiltrada = _veiculos;
+
+        if (!String.IsNullOrEmpty(Busca)) // Se a busca NAO for nulo ou NAO for vazio 
+        {
+            listaFiltrada = _veiculos.Where(v => v.Modelo.ToLower().Contains(Busca.ToLower()) || 
+                                            v.Placa.ToLower().Contains(Busca.ToLower()) ||
+                                            v.Marca.ToLower().Contains(Busca.ToLower())
+            ).ToList(); 
+        }
+
+        ViewData["FiltroAtual"] = Busca; // Guarda o valor de Busca  
+
+        return View(listaFiltrada);
     }
 
     // Busca pelo ID

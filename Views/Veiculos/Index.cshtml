@@ -17,12 +17,25 @@
 
 <div class="container p-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Lista de veículos</h1>
+        <h1 class="m-0">Lista de veículos</h1>
+
+        @* Barra de pesquisa *@
+        <form asp-action="Index" method="get" class="d-flex m-0">
+            <div class="input-group">
+                <input type="text" class="form-control" name="busca" value="@ViewData["FiltroAtual"]" 
+                placeholder="Modelo, placa ou marca" />
+                <button class="btn btn-primary" type="submit">
+                    <i class="bi bi-search"></i> Pesquisar
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">Limpar</a>
+            </div>
+        </form>
         <a asp-action="Create" class="btn btn-primary">
             Novo Veículo
         </a>
-    </div>
 
+    </div>
+    
     @if (!Model.Any())
     {
         <div class="alert alert-info" role="alert">
