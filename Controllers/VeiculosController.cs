@@ -42,7 +42,7 @@ public class VeiculosController : Controller
 
     public IActionResult Index()
     {
-        var lista = veiculos.OrderBy(veiculo => veiculo.Modelo).ToList();
+        var lista = veiculos.OrderBy(veiculo => veiculo.Placa).ToList();
         return View(lista);
     }
 
@@ -52,7 +52,7 @@ public class VeiculosController : Controller
         // - Buscar o veiculo pelo id na lista estatica.
         // - Se nao existir, retornar NotFound().
         // - Retornar View(veiculo).
-       
+
         var veiculo = veiculos.FirstOrDefault(m => m.Id == id);
         if (veiculo is null)
         {
@@ -70,7 +70,7 @@ public class VeiculosController : Controller
         //   - Combustivel (TipoCombustivel)
         //   - Categoria (CategoriaVeiculo)
         // - Garantir que o usuario consiga selecionar valores validos para ambos.
-        throw new NotImplementedException();
+        return View();
     }
 
     [HttpPost]
@@ -82,7 +82,16 @@ public class VeiculosController : Controller
         // - Gerar Id unico (incrementando um _nextId) e atribuir em veiculo.Id.
         // - Persistir o veiculo (adicionar na lista estatica).
         // - Redirecionar para Index (RedirectToAction(nameof(Index))).
-        throw new NotImplementedException();
+
+        if (!ModelState.IsValid)
+        {
+            return View(veiculo);
+        }
+
+        veiculo.Id = _nextId++;
+        veiculos.Add(veiculo);
+        return RedirectToAction(nameof(Index));
+
     }
 
     public IActionResult Edit(int id)
