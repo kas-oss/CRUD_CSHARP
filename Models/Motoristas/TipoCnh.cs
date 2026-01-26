@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace CRUD_CSHARP.Models;
+namespace CRUD_CSHARP.Models.Motoristas;
 
 public enum TipoCnh
 {
