@@ -100,7 +100,13 @@ public class VeiculosController : Controller
         // - Buscar o veiculo pelo id na lista estatica.
         // - Se nao existir, retornar NotFound().
         // - Retornar View(veiculo) para preencher o formulario.
-        throw new NotImplementedException();
+        var veiculo = veiculos.FirstOrDefault(veiculo => veiculo.Id == id);
+        if (veiculo is null)
+        {
+            return NotFound();
+        }
+        return View(veiculo);
+
     }
 
     [HttpPost]
@@ -114,7 +120,30 @@ public class VeiculosController : Controller
         // - Atualizar os campos do veiculo persistido:
         //   Placa, Marca, Modelo, Ano, CapacidadeTanqueLitros, Combustivel, Categoria.
         // - Redirecionar para Index (RedirectToAction(nameof(Index))).
-        throw new NotImplementedException();
+        if (id != veiculo.Id)
+        {
+            return NotFound();
+        }
+        if (!ModelState.IsValid)
+        {
+            return View(veiculo);
+        }
+
+        var existente = veiculos.FirstOrDefault(veiculo => veiculo.Id == id);
+        if (existente is null)
+        {
+            return NotFound();
+        }
+
+        existente.Placa = veiculo.Placa;
+        existente.Marca = veiculo.Marca;
+        existente.Modelo = veiculo.Modelo;
+        existente.Ano = veiculo.Ano;
+        existente.CapacidadeTanqueLitros = veiculo.CapacidadeTanqueLitros;
+        existente.Combustivel = veiculo.Combustivel;
+        existente.Categoria = veiculo.Categoria;
+
+        return RedirectToAction(nameof(Index));
     }
 
     public IActionResult Delete(int id)
