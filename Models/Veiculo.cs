@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace CRUD_CSHARP.Models;
@@ -23,6 +24,7 @@ public class Veiculo
 
     [Required]
     [Range(10, 1000)]
+    [Display(Name ="Capacidade (em litros)")]
     public decimal CapacidadeTanqueLitros { get; set; }
 
     [Required]
