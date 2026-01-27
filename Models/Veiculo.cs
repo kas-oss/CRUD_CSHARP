@@ -1,34 +1,25 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace CRUD_CSHARP.Models;
-
-public class Veiculo
+namespace CRUD_CSHARP.Models
 {
-    public int Id { get; set; }
+    public class Veiculo
+    {
+        public int Id
+        { get; set; }
 
-    [Required]
-    [StringLength(8, MinimumLength = 7)]
-    public string Placa { get; set; } = string.Empty;
+        [Required(ErrorMessage = "A Placa do Veículo é obrigatoria")]
+        public string Placa
+        { get; set; } = string.Empty;
 
-    [Required]
-    [StringLength(60)]
-    public string Marca { get; set; } = string.Empty;
+        [Required(ErrorMessage = "O Modelo do Veículo é obrigatorio")]
+        public string Modelo
+        { get; set; } = string.Empty;
 
-    [Required]
-    [StringLength(60)]
-    public string Modelo { get; set; } = string.Empty;
+        [Required(ErrorMessage = "O Marca do Veículo é obrigatorio")]
+        public string Marca
+        { get; set; } = string.Empty;
 
-    [Range(1900, 2026)]
-    public int? Ano { get; set; }
-
-    [Required]
-    [Range(10, 1000)]
-    public decimal CapacidadeTanqueLitros { get; set; }
-
-    [Required]
-    public TipoCombustivel Combustivel { get; set; }
-
-    [Range(1, int.MaxValue, ErrorMessage = "Selecione a categoria do veículo.")]
-    [Display(Name = "Categoria")]
-    public CategoriaVeiculo Categoria { get; set; } = CategoriaVeiculo.NaoInformada;
-}
+        public int Ano
+        { get; set; }
+    }
+}   
