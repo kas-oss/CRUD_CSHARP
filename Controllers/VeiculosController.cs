@@ -6,48 +6,14 @@ namespace CRUD_CSHARP.Controllers;
 public class VeiculosController : Controller
 {
 
-    public static readonly List<Veiculo> Veiculos = new()
-    {
-        new Veiculo
-        {
-            Id = 1,
-            Placa = "ABC-0000",
-            Marca = "Volkswagen",
-            Modelo = "Taos",
-            Ano = 2026,
-            CapacidadeTanqueLitros = 48,
-            Combustivel = TipoCombustivel.Gasolina,
-            Categoria = CategoriaVeiculo.VeiculoLeve
-        },
-        new Veiculo
-        {
-            Id = 2,
-            Placa = "ABC-0001",
-            Marca = "BYD",
-            Modelo = "Dolphin Mini",
-            Ano = 2025,
-
-            // Carros eletricos não possuem tanque de combustivel
-            // Para respeitar a validacao do model (> 10),
-            // Irei considerar a capacidade do tanque de veiculos eletricos como KWh da bateria
-            CapacidadeTanqueLitros = 38,
-            Combustivel = TipoCombustivel.Eletrico,
-            Categoria = CategoriaVeiculo.VeiculoLeve
-        },
-        new Veiculo
-        {
-            Id = 3,
-            Placa = "ABC-0002",
-            Marca = "Ford",
-            Modelo = "Ranger",
-            Ano = 2020,
-            CapacidadeTanqueLitros = 80,
-            Combustivel = TipoCombustivel.Diesel,
-            Categoria = CategoriaVeiculo.VeiculoLeve
-        }
-    };
+    public VeiculoRepository _veiculoRepository;
 
     public static int _nextId = 4;
+
+    public VeiculosController(VeiculoRepository veiculoRepository)
+    {
+        _veiculoRepository = veiculoRepository;
+    }
 
     // OBJETIVO DO DESAFIO:
     // - Implementar um CRUD completo de Veiculos seguindo o mesmo padrao do MotoristasController.
@@ -62,7 +28,7 @@ public class VeiculosController : Controller
         // - Ordenar a lista (ex.: Marca, Modelo e/ou Placa) para manter consistencia na exibicao.
         // - Retornar View(lista).
 
-        var lista = Veiculos.OrderBy(v => v.Placa).ToList();
+        var lista = _veiculoRepository.Veiculos.OrderBy(v => v.Placa).ToList();
 
         return View(lista);
     }
@@ -74,7 +40,7 @@ public class VeiculosController : Controller
         // - Se nao existir, retornar NotFound().
         // - Retornar View(veiculo).
 
-        var veiculo = Veiculos.FirstOrDefault(v => v.Id == id);
+        var veiculo = _veiculoRepository.Veiculos.FirstOrDefault(v => v.Id == id);
 
         if (veiculo is null)
         {
@@ -114,7 +80,7 @@ public class VeiculosController : Controller
 
         veiculo.Id = _nextId++;
 
-        Veiculos.Add(veiculo);
+        _veiculoRepository.Veiculos.Add(veiculo);
 
         return RedirectToAction(nameof(Index));
     }
@@ -126,7 +92,7 @@ public class VeiculosController : Controller
         // - Se nao existir, retornar NotFound().
         // - Retornar View(veiculo) para preencher o formulario.
 
-        var veiculo = Veiculos.FirstOrDefault(v => v.Id == id);
+        var veiculo = _veiculoRepository.Veiculos.FirstOrDefault(v => v.Id == id);
 
         if (veiculo is null)
         {
@@ -159,7 +125,7 @@ public class VeiculosController : Controller
             return View(veiculo);
         }
 
-        var existente = Veiculos.FirstOrDefault(v => v.Id == id);
+        var existente = _veiculoRepository.Veiculos.FirstOrDefault(v => v.Id == id);
 
         if (existente is null)
         {
@@ -185,7 +151,7 @@ public class VeiculosController : Controller
         // - Se nao existir, retornar NotFound().
         // - Retornar View(veiculo) para confirmacao de exclusao.
 
-        var veiculo = Veiculos.FirstOrDefault(v => v.Id == id);
+        var veiculo = _veiculoRepository.Veiculos.FirstOrDefault(v => v.Id == id);
 
         if (veiculo is null)
         {
@@ -204,14 +170,14 @@ public class VeiculosController : Controller
         // - Remover o item encontrado da lista estatica.
         // - Redirecionar para Index (RedirectToAction(nameof(Index))).
 
-        var existente = Veiculos.FirstOrDefault(v => v.Id == id);
+        var existente = _veiculoRepository.Veiculos.FirstOrDefault(v => v.Id == id);
 
         if (existente is null)
         {
             return NotFound();
         }
 
-        Veiculos.Remove(existente);
+        _veiculoRepository.Veiculos.Remove(existente);
 
         return RedirectToAction(nameof(Index));
 

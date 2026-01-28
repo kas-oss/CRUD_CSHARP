@@ -19,3 +19,9 @@ Gostaria de finalizar agradecendo pela oportunidade de participar do processo se
 # Resolução Estendida
 
 Após a entrega dos requisitos mínimos solicitados no desafio, nos próximos commits irei implementar uma funcionalidade de **Vinculação** que tem como objetivo registrar o **utilização** de um **Veículo** por um **Motorista**
+
+## Explicação dos commits
+
+### Lista de persistência injetáveis
+
+Ao implementar algo semelhante a um relacionamento entre entidades usando listas como forma de persistência, em algum momento eu precisarei acessar as listas de veículos e motoristas fora de seus respectivos controllers, para isso irei remover a declaração dessas listas dos controllers e colocá-las em um repository, de forma que eu possa fazer uso do mecanismo de injeção de dependências para injetar e acessar essas listas em qualquer lugar que eu precisar.
