@@ -19,7 +19,7 @@ public enum CategoriaVeiculo
     [Display(Name = "Utilitário")]
     Utilitario = 4,
 
-    [Display(Name = "Caminhão / veículo pesado")]
+    [Display(Name = "Caminhão / Veículo pesado")]
     VeiculoPesado = 5,
 
     [Display(Name = "Ônibus / Micro-ônibus")]

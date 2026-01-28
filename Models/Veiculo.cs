@@ -23,6 +23,7 @@ public class Veiculo
 
     [Required]
     [Range(10, 1000)]
+    [Display(Name = "Capacidade do Tanque em Litros")]
     public decimal CapacidadeTanqueLitros { get; set; }
 
     [Required]
