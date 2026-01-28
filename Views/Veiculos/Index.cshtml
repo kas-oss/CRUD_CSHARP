@@ -1,3 +1,5 @@
+@using CRUD_CSHARP.Extensions
+
 @model IEnumerable<CRUD_CSHARP.Models.Veiculo>
 
 @{
@@ -24,22 +26,22 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.Placa</td>
-                    <td>@item.Marca</td>
-                    <td>@item.Modelo</td>
-                    <td>@item.Ano</td>
-                    <td>@item.Combustivel</td>
-                    <td>@item.Categoria</td>
-                    <td>
-                        <a class="btn btn-info btn-xs" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
-                        <a class="btn btn-warning btn-xs" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
-                        <a class="btn btn-danger btn-xs" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
-                    </td>
-                </tr>
-            }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Placa</td>
+                        <td>@item.Marca</td>
+                        <td>@item.Modelo</td>
+                        <td>@item.Ano</td>
+                        <td>@item.Combustivel</td>
+                        <td>@item.Categoria.GetDisplayName()</td>
+                        <td>
+                            <a class="btn btn-info btn-xs" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                            <a class="btn btn-warning btn-xs" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                            <a class="btn btn-danger btn-xs" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
