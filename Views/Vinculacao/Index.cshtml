@@ -1,4 +1,4 @@
-@model IEnumerable<CRUD_CSHARP.Models.Vinculacao>
+@model IEnumerable<CRUD_CSHARP.Models.VinculacaoFullModel>
 
 @{
     ViewData["Title"] = "Vinculações";
@@ -30,15 +30,15 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.MotoristaId</td>
-                    <td>@item.VeiculoId</td>
+                    <td>@item.Motorista.Nome</td>
+                    <td>@item.Veiculo.Placa - @item.Veiculo.Modelo</td>
 
-                    <td>@item.DataHoraInicio.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@item.Vinculacao.DataHoraInicio.ToString("dd/MM/yyyy HH:mm")</td>
 
                     <td>
-                        @if (item.DataHoraFim.HasValue)
+                        @if (item.Vinculacao.DataHoraFim.HasValue)
                         {
-                            @item.DataHoraFim.Value.ToString("dd/MM/yyyy HH:mm")
+                            @item.Vinculacao.DataHoraFim.Value.ToString("dd/MM/yyyy HH:mm")
                         }
                         else
                         {
@@ -46,12 +46,12 @@
                         }
                     </td>
 
-                    <td>@item.QuilometragemInicial</td>
+                    <td>@item.Vinculacao.QuilometragemInicial</td>
 
                     <td>
-                        @if (item.QuilometragemFinal.HasValue)
+                        @if (item.Vinculacao.QuilometragemFinal.HasValue)
                         {
-                            @item.QuilometragemFinal
+                            @item.Vinculacao.QuilometragemFinal
                         }
                         else
                         {
@@ -59,13 +59,13 @@
                         }
                     </td>
 
-                    <td><span  title="@item.Motivo">@item.Motivo.Substring(0, Math.Min(10, @item.Motivo.Length))...</span></td>
-                    <td><span  title="@item.Observacoes">@item.Observacoes?.Substring(0, Math.Min(10, @item.Observacoes?.Length ?? 0))...</span></td>
+                    <td><span  title="@item.Vinculacao.Motivo">@item.Vinculacao.Motivo.Substring(0, Math.Min(10, @item.Vinculacao.Motivo.Length))...</span></td>
+                    <td><span  title="@item.Vinculacao.Observacoes">@item.Vinculacao.Observacoes?.Substring(0, Math.Min(10, @item.Vinculacao.Observacoes?.Length ?? 0))...</span></td>
 
                     <td>
-                        <a class="btn btn-info btn-xs" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
-                        <a class="btn btn-warning btn-xs" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
-                        <a class="btn btn-danger btn-xs" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                        <a class="btn btn-info btn-xs" asp-action="Details" asp-route-id="@item.Vinculacao.Id">Detalhes</a>
+                        <a class="btn btn-warning btn-xs" asp-action="Edit" asp-route-id="@item.Vinculacao.Id">Editar</a>
+                        <a class="btn btn-danger btn-xs" asp-action="Delete" asp-route-id="@item.Vinculacao.Id">Excluir</a>
                     </td>
                 </tr>
             }
