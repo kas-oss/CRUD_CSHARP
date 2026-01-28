@@ -5,6 +5,50 @@ namespace CRUD_CSHARP.Controllers;
 
 public class VeiculosController : Controller
 {
+
+    public static readonly List<Veiculo> Veiculos = new()
+    {
+        new Veiculo
+        {
+            Id = 1,
+            Placa = "ABC-0000",
+            Marca = "Volkswagen",
+            Modelo = "Taos",
+            Ano = 2026,
+            CapacidadeTanqueLitros = 48,
+            Combustivel = TipoCombustivel.Gasolina,
+            Categoria = CategoriaVeiculo.VeiculoLeve
+        },
+        new Veiculo
+        {
+            Id = 2,
+            Placa = "ABC-0001",
+            Marca = "BYD",
+            Modelo = "Dolphin Mini",
+            Ano = 2025,
+
+            // Carros eletricos não possuem tanque de combustivel
+            // Para respeitar a validacao do model (> 10),
+            // Irei considerar a capacidade do tanque de veiculos eletricos como KWh da bateria
+            CapacidadeTanqueLitros = 38,
+            Combustivel = TipoCombustivel.Eletrico,
+            Categoria = CategoriaVeiculo.VeiculoLeve
+        },
+        new Veiculo
+        {
+            Id = 3,
+            Placa = "ABC-0002",
+            Marca = "Ford",
+            Modelo = "Ranger",
+            Ano = 2020,
+            CapacidadeTanqueLitros = 80,
+            Combustivel = TipoCombustivel.Diesel,
+            Categoria = CategoriaVeiculo.VeiculoLeve
+        }
+    };
+
+    public static int _nextId = 4;
+
     // OBJETIVO DO DESAFIO:
     // - Implementar um CRUD completo de Veiculos seguindo o mesmo padrao do MotoristasController.
     // - Usar persistencia em memoria neste controller: List<Veiculo> estatica + geracao de Id (_nextId).
@@ -17,7 +61,10 @@ public class VeiculosController : Controller
         // - Buscar/listar todos os veiculos persistidos (lista estatica).
         // - Ordenar a lista (ex.: Marca, Modelo e/ou Placa) para manter consistencia na exibicao.
         // - Retornar View(lista).
-        throw new NotImplementedException();
+
+        var lista = Veiculos.OrderBy(v => v.Placa).ToList();
+
+        return View(lista);
     }
 
     public IActionResult Details(int id)
@@ -26,7 +73,15 @@ public class VeiculosController : Controller
         // - Buscar o veiculo pelo id na lista estatica.
         // - Se nao existir, retornar NotFound().
         // - Retornar View(veiculo).
-        throw new NotImplementedException();
+
+        var veiculo = Veiculos.FirstOrDefault(v => v.Id == id);
+
+        if (veiculo is null)
+        {
+            return NotFound();
+        }
+
+        return View(veiculo);
     }
 
     public IActionResult Create()
@@ -37,7 +92,9 @@ public class VeiculosController : Controller
         //   - Combustivel (TipoCombustivel)
         //   - Categoria (CategoriaVeiculo)
         // - Garantir que o usuario consiga selecionar valores validos para ambos.
-        throw new NotImplementedException();
+
+        return View();
+
     }
 
     [HttpPost]
@@ -49,7 +106,17 @@ public class VeiculosController : Controller
         // - Gerar Id unico (incrementando um _nextId) e atribuir em veiculo.Id.
         // - Persistir o veiculo (adicionar na lista estatica).
         // - Redirecionar para Index (RedirectToAction(nameof(Index))).
-        throw new NotImplementedException();
+
+        if (!ModelState.IsValid)
+        {
+            return View(veiculo);
+        }
+
+        veiculo.Id = _nextId++;
+
+        Veiculos.Add(veiculo);
+
+        return RedirectToAction(nameof(Index));
     }
 
     public IActionResult Edit(int id)
@@ -58,7 +125,16 @@ public class VeiculosController : Controller
         // - Buscar o veiculo pelo id na lista estatica.
         // - Se nao existir, retornar NotFound().
         // - Retornar View(veiculo) para preencher o formulario.
-        throw new NotImplementedException();
+
+        var veiculo = Veiculos.FirstOrDefault(v => v.Id == id);
+
+        if (veiculo is null)
+        {
+            return NotFound();
+        }
+
+        return View(veiculo);
+
     }
 
     [HttpPost]
@@ -72,7 +148,34 @@ public class VeiculosController : Controller
         // - Atualizar os campos do veiculo persistido:
         //   Placa, Marca, Modelo, Ano, CapacidadeTanqueLitros, Combustivel, Categoria.
         // - Redirecionar para Index (RedirectToAction(nameof(Index))).
-        throw new NotImplementedException();
+
+        if (id != veiculo.Id)
+        {
+            return NotFound();
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return View(veiculo);
+        }
+
+        var existente = Veiculos.FirstOrDefault(v => v.Id == id);
+
+        if (existente is null)
+        {
+            return NotFound();
+        }
+
+        existente.Placa = veiculo.Placa;
+        existente.Marca = veiculo.Marca;
+        existente.Modelo = veiculo.Modelo;
+        existente.Ano = veiculo.Ano;
+        existente.CapacidadeTanqueLitros = veiculo.CapacidadeTanqueLitros;
+        existente.Combustivel = veiculo.Combustivel;
+        existente.Categoria = veiculo.Categoria;
+
+        return RedirectToAction(nameof(Index));
+
     }
 
     public IActionResult Delete(int id)
@@ -81,7 +184,15 @@ public class VeiculosController : Controller
         // - Buscar o veiculo pelo id na lista estatica.
         // - Se nao existir, retornar NotFound().
         // - Retornar View(veiculo) para confirmacao de exclusao.
-        throw new NotImplementedException();
+
+        var veiculo = Veiculos.FirstOrDefault(v => v.Id == id);
+
+        if (veiculo is null)
+        {
+            return NotFound();
+        }
+
+        return View(veiculo);
     }
 
     [HttpPost]
@@ -92,6 +203,17 @@ public class VeiculosController : Controller
         // - Buscar o veiculo persistido pelo id; se nao existir, retornar NotFound().
         // - Remover o item encontrado da lista estatica.
         // - Redirecionar para Index (RedirectToAction(nameof(Index))).
-        throw new NotImplementedException();
+
+        var existente = Veiculos.FirstOrDefault(v => v.Id == id);
+
+        if (existente is null)
+        {
+            return NotFound();
+        }
+
+        Veiculos.Remove(existente);
+
+        return RedirectToAction(nameof(Index));
+
     }
 }

@@ -1,0 +1,96 @@
+@model CRUD_CSHARP.Models.Veiculo
+
+@{
+    ViewData["Title"] = "Novo veiculo";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Cadastrar veiculo</h3>
+    </div>
+    <form asp-action="Create" method="post">
+        <div class="card-body">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Placa"></label>
+                <input asp-for="Placa" class="form-control" />
+                <span asp-validation-for="Placa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Marca"></label>
+                <input asp-for="Marca" class="form-control" />
+                <span asp-validation-for="Marca" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Modelo"></label>
+                <input asp-for="Modelo" class="form-control" />
+                <span asp-validation-for="Modelo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ano"></label>
+                <input asp-for="Ano" class="form-control" />
+                <span asp-validation-for="Ano" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Combustivel"></label>
+                <select asp-for="Combustivel" class="form-control" asp-items="Html.GetEnumSelectList<TipoCombustivel>()" id="combustivel-select"></select>
+                <span asp-validation-for="Combustivel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CapacidadeTanqueLitros">
+                    Capacidade do tanque <span id="unidade-medida-span"></span>
+                </label>
+
+                @* 
+                Durante testes percebi que o input não estava aceitando valores decimais, nem usando virgula nem ponto EX 48.00 ou 48,00
+
+                Apesar de tanques de combustivel geralmente serem medidos em litros inteiros, como o Model usa o tipo decimal 
+                decidi corrigir a logica do lado do frontend para aceitar valores decimais, usando step="0.01" no input type="number"
+                *@
+
+                <input asp-for="CapacidadeTanqueLitros" class="form-control" type="number" step="0.01" />
+                <span asp-validation-for="CapacidadeTanqueLitros" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Categoria"></label>
+                <select asp-for="Categoria" class="form-control" asp-items="Html.GetEnumSelectList<CategoriaVeiculo>()"></select>
+                <span asp-validation-for="Categoria" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+
+     <script>
+        const combustivelSelect = document.getElementById('combustivel-select');
+        const unidadeMedidaSpan = document.getElementById('unidade-medida-span');
+
+        function atualizarUnidadeMedidaSpan() {
+
+            const selectedValue = combustivelSelect.value;
+
+            switch (selectedValue) {
+                case '@((int)TipoCombustivel.Eletrico)':
+                    unidadeMedidaSpan.textContent = '(kWh)';
+                    break;
+                default:
+                    unidadeMedidaSpan.textContent = '(litros)';
+            }
+
+        }
+
+        combustivelSelect.addEventListener('change', atualizarUnidadeMedidaSpan);
+
+        atualizarUnidadeMedidaSpan();
+        
+    </script>
+
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
