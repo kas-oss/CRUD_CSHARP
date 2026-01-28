@@ -8,18 +8,21 @@ public enum TipoCombustivel
     NaoInformada = 0,
 
     [Display(Name = "Gasolina")]
-    Ciclomotor = 1,
+    Gasolina = 1,
 
     [Display(Name = "Etanol")]
-    Motocicleta = 2,
+    Etanol = 2,
+
+    [Display(Name = "Flex (Gasolina/Etanol)")]
+    Flex = 3,
 
     [Display(Name = "Diesel")]
-    VeiculoLeve = 3,
+    Disel = 4,
 
     [Display(Name = "GNV")]
-    Utilitario = 4,
+    GNV = 5,
 
     [Display(Name = "Eletrico")]
-    VeiculoPesado = 5,
+    Eletrico = 6,
 }
 

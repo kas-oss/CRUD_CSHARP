@@ -6,8 +6,9 @@ public class Veiculo
 {
     public int Id { get; set; }
 
-    [Required]
-    [StringLength(8, MinimumLength = 7)]
+    [Required(ErrorMessage = "A placa é obrigatória.")]
+    [StringLength(7, MinimumLength = 7, ErrorMessage = "A Placa deve ter exatamente 7 caracteres")]
+    [RegularExpression(@"^[a-zA-Z]{3}[0-9][A-Za-z0-9][0-9]{2}$", ErrorMessage = "Formato inválido")]
     public string Placa { get; set; } = string.Empty;
 
     [Range(1, int.MaxValue, ErrorMessage = "Selecione a Marca do Carro.")]

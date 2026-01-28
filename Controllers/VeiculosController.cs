@@ -94,6 +94,7 @@ public class VeiculosController : Controller
         veiculoexistente.Ano = veiculo.Ano;
         veiculoexistente.CapacidadeTanqueLitros = veiculo.CapacidadeTanqueLitros;
         veiculoexistente.Combustivel = veiculo.Combustivel;
+        veiculoexistente.Categoria = veiculo.Categoria;
 
         return RedirectToAction(nameof(Index));
     }
