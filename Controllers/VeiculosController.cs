@@ -1,97 +1,128 @@
 using CRUD_CSHARP.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
 namespace CRUD_CSHARP.Controllers;
 
 public class VeiculosController : Controller
 {
-    // OBJETIVO DO DESAFIO:
-    // - Implementar um CRUD completo de Veiculos seguindo o mesmo padrao do MotoristasController.
-    // - Usar persistencia em memoria neste controller: List<Veiculo> estatica + geracao de Id (_nextId).
-    // - Criar as Views em Views/Veiculos: Index, Details, Create, Edit, Delete.
-    // - Respeitar as validacoes do modelo (DataAnnotations) e tratar casos de "nao encontrado" com NotFound().
 
+    //criando uma lista estatica
+    private static readonly List<Veiculo> Veiculos = new List<Veiculo>();
+
+    private static int nextId = 1;
+
+    // get : Veiculos
     public IActionResult Index()
     {
-        // O que fazer:
-        // - Buscar/listar todos os veiculos persistidos (lista estatica).
-        // - Ordenar a lista (ex.: Marca, Modelo e/ou Placa) para manter consistencia na exibicao.
-        // - Retornar View(lista).
-        throw new NotImplementedException();
+        
+        var lista = View(Veiculos.OrderBy(v => v.Marca).ToList());
+        return lista;
     }
 
+    // get : Veiculos/details
     public IActionResult Details(int id)
     {
-        // O que fazer:
-        // - Buscar o veiculo pelo id na lista estatica.
-        // - Se nao existir, retornar NotFound().
-        // - Retornar View(veiculo).
-        throw new NotImplementedException();
+
+        var veiculo = Veiculos.FirstOrDefault(v => v.Id == id);
+        if (veiculo == null)
+        {
+            return NotFound();
+        }
+
+        return View(veiculo);
     }
 
+    // get : Veiculos/Create 
     public IActionResult Create()
     {
-        // O que fazer:
-        // - Retornar a tela de cadastro (View).
-        // - Na View, renderizar dropdowns para os enums do modelo:
-        //   - Combustivel (TipoCombustivel)
-        //   - Categoria (CategoriaVeiculo)
-        // - Garantir que o usuario consiga selecionar valores validos para ambos.
-        throw new NotImplementedException();
+        return View();
     }
 
+    // POST : Veiculos/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Create(Veiculo veiculo)
     {
-        // O que fazer:
-        // - Validar ModelState; se invalido, retornar View(veiculo) para exibir os erros.
-        // - Gerar Id unico (incrementando um _nextId) e atribuir em veiculo.Id.
-        // - Persistir o veiculo (adicionar na lista estatica).
-        // - Redirecionar para Index (RedirectToAction(nameof(Index))).
-        throw new NotImplementedException();
+        if (!ModelState.IsValid)
+        {
+            return View(veiculo);
+        }
+
+        veiculo.Id = nextId++;
+        Veiculos.Add(veiculo);
+        return RedirectToAction(nameof(Index));
     }
 
+    // get : Veiculos/Edit
     public IActionResult Edit(int id)
     {
-        // O que fazer:
-        // - Buscar o veiculo pelo id na lista estatica.
-        // - Se nao existir, retornar NotFound().
-        // - Retornar View(veiculo) para preencher o formulario.
-        throw new NotImplementedException();
+        var veiculo = Veiculos.FirstOrDefault(v => v.Id == id);
+        if (veiculo == null)
+        {
+            return NotFound();
+        }
+
+        return View(veiculo);
     }
 
+    // POST Veiculos/Edit
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Edit(int id, Veiculo veiculo)
     {
-        // O que fazer:
-        // - Validar se id == veiculo.Id; se nao, retornar NotFound().
-        // - Validar ModelState; se invalido, retornar View(veiculo) para exibir os erros.
-        // - Buscar o veiculo persistido pelo id; se nao existir, retornar NotFound().
-        // - Atualizar os campos do veiculo persistido:
-        //   Placa, Marca, Modelo, Ano, CapacidadeTanqueLitros, Combustivel, Categoria.
-        // - Redirecionar para Index (RedirectToAction(nameof(Index))).
-        throw new NotImplementedException();
+        if (id != veiculo.Id)
+        {
+            return NotFound();
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return View(veiculo);
+        }
+
+        var veiculoexistente = Veiculos.FirstOrDefault(v => v.Id == id);
+        if (veiculoexistente == null)
+        {
+            return NotFound();
+        }
+
+        // Atualiza os dados
+        veiculoexistente.Placa = veiculo.Placa;
+        veiculoexistente.Marca = veiculo.Marca;
+        veiculoexistente.Modelo = veiculo.Modelo;
+        veiculoexistente.Ano = veiculo.Ano;
+        veiculoexistente.CapacidadeTanqueLitros = veiculo.CapacidadeTanqueLitros;
+        veiculoexistente.Combustivel = veiculo.Combustivel;
+        veiculoexistente.Categoria = veiculo.Categoria;
+
+        return RedirectToAction(nameof(Index));
     }
 
+    // get Veiculos/Delete
     public IActionResult Delete(int id)
     {
-        // O que fazer:
-        // - Buscar o veiculo pelo id na lista estatica.
-        // - Se nao existir, retornar NotFound().
-        // - Retornar View(veiculo) para confirmacao de exclusao.
-        throw new NotImplementedException();
+        var veiculo = Veiculos.FirstOrDefault(v => v.Id == id);
+        if (veiculo == null)
+        {
+            return NotFound();
+        }
+
+        return View(veiculo);
     }
 
+    // POST Veiculos/Delete
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Delete(int id, Veiculo veiculo)
     {
-        // O que fazer:
-        // - Buscar o veiculo persistido pelo id; se nao existir, retornar NotFound().
-        // - Remover o item encontrado da lista estatica.
-        // - Redirecionar para Index (RedirectToAction(nameof(Index))).
-        throw new NotImplementedException();
+        var veiculoexistente = Veiculos.FirstOrDefault(v => v.Id == id);
+        if (veiculoexistente == null)
+        {
+            return NotFound();
+        }
+
+        Veiculos.Remove(veiculoexistente);
+        return RedirectToAction(nameof(Index));
     }
 }
