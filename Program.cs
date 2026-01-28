@@ -5,6 +5,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<VeiculoRepository>();
 builder.Services.AddSingleton<MotoristaRepository>();
+builder.Services.AddSingleton<VinculacaoRepository>();
 
 
 var app = builder.Build();
