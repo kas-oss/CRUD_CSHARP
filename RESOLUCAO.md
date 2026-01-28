@@ -15,3 +15,7 @@ Além dos requisitos listados no desafio, implementei algumas pequenas melhorias
 *   Tornei a exibição do nome da propriedade CapacidadeTanqueLitros **dinâmica** e fiz ela ser exibida como Capacidade do Tanque **kWh** para veículos elétricos
 
 Gostaria de finalizar agradecendo pela oportunidade de participar do processo seletivo.
+
+# Resolução Estendida
+
+Após a entrega dos requisitos mínimos solicitados no desafio, nos próximos commits irei implementar uma funcionalidade de **Vinculação** que tem como objetivo registrar o **utilização** de um **Veículo** por um **Motorista**
