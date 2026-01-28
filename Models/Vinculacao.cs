@@ -1,6 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
+namespace CRUD_CSHARP.Models;
+
 public class Vinculacao
 {
     public int Id { get; set; }
