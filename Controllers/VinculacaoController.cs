@@ -241,4 +241,42 @@ public class VinculacaoController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
+    public IActionResult Delete(int id)
+    {
+        var vinculacao = _vinculacaoRepository.Vinculacoes.FirstOrDefault(v => v.Id == id);
+
+        if (vinculacao == null)
+        {
+            return NotFound();
+        }
+
+        VinculacaoFullModel vinculacaoFullModel = new VinculacaoFullModel
+        {
+            Vinculacao = vinculacao,
+            Motorista = _motoristaRepository.Motoristas.FirstOrDefault(m =>
+                m.Id == vinculacao.MotoristaId
+            )!,
+            Veiculo = _veiculoRepository.Veiculos.FirstOrDefault(v =>
+                v.Id == vinculacao.VeiculoId
+            )!,
+        };
+
+        return View(vinculacaoFullModel);
+    }
+
+    [HttpPost]
+    public IActionResult Delete(VinculacaoFullModel model)
+    {
+        var vinculacao = _vinculacaoRepository.Vinculacoes.FirstOrDefault(v =>
+            v.Id == model.Vinculacao.Id
+        );
+
+        if (vinculacao == null)
+            return NotFound();
+
+        _vinculacaoRepository.Vinculacoes.Remove(vinculacao);
+
+        return RedirectToAction(nameof(Index));
+    }
 }
