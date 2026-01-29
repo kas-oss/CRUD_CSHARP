@@ -25,3 +25,13 @@ Após a entrega dos requisitos mínimos solicitados no desafio, nos próximos co
 ### Lista de persistência injetáveis
 
 Ao implementar algo semelhante a um relacionamento entre entidades usando listas como forma de persistência, em algum momento eu precisarei acessar as listas de veículos e motoristas fora de seus respectivos controllers, para isso irei remover a declaração dessas listas dos controllers e colocá-las em um repository, de forma que eu possa fazer uso do mecanismo de injeção de dependências para injetar e acessar essas listas em qualquer lugar que eu precisar.
+
+## Pontos de melhoria
+
+### Constraint para delete
+
+Impedir que um motorista ou veiculo seja apagado caso possua vinculações 
+
+## Constraint de tempo / quilometragem 
+
+Impedir que diferentes vinculações sejam criadas de forma que se sobreponham no periodo de tempo ou na faixa de quilometragem
