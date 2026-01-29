@@ -1,4 +1,5 @@
 using CRUD_CSHARP.Models;
+using CRUD_CSHARP.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD_CSHARP.Controllers;
@@ -29,7 +30,9 @@ public class VinculacaoController : Controller
 
         var fullVincs = vincs.Select(vinc =>
         {
-            var motorista = _motoristaRepository.Motoristas.FirstOrDefault(m => m.Id == vinc.MotoristaId);
+            var motorista = _motoristaRepository.Motoristas.FirstOrDefault(m =>
+                m.Id == vinc.MotoristaId
+            );
             var veiculo = _veiculoRepository.Veiculos.FirstOrDefault(v => v.Id == vinc.VeiculoId);
 
             return new VinculacaoFullModel
@@ -51,7 +54,9 @@ public class VinculacaoController : Controller
             return NotFound();
         }
 
-        var motorista = _motoristaRepository.Motoristas.FirstOrDefault(m => m.Id == vinc.MotoristaId);
+        var motorista = _motoristaRepository.Motoristas.FirstOrDefault(m =>
+            m.Id == vinc.MotoristaId
+        );
         var veiculo = _veiculoRepository.Veiculos.FirstOrDefault(v => v.Id == vinc.VeiculoId);
 
         var fullVinc = new VinculacaoFullModel

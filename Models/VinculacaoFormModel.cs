@@ -6,6 +6,6 @@ public class VinculacaoFormModel
 {
     public Vinculacao Vinculacao { get; set; } = new();
 
-    public List<MotoristaDisponivelParaVinculacaoModel> MotoristasDisponibilidade { get; set; } = new();
-    public List<VeiculoDisponivelParaVinculacaoModel> VeiculosDisponibilidade { get; set; } = new();
+    public List<MotoristaDisponibilidadeViewModel> MotoristasDisponibilidade { get; set; } = new();
+    public List<VeiculoDisponibilidadeViewModel> VeiculosDisponibilidade { get; set; } = new();
 }

@@ -1,3 +1,5 @@
+using CRUD_CSHARP.Models;
+
 namespace CRUD_CSHARP.Services;
 
 // Implementa de maneira de maneira modular algumas lógicas de forma que possa ser reutilizada em diferentes partes do sistema
@@ -20,7 +22,7 @@ public class VinculoService
 
     public bool MotoristaEstaDisponivel(int motoristaId)
     {
-        var vinculacoes = _vinculacaoRepository.GetAll();
+        var vinculacoes = _vinculacaoRepository.Vinculacoes;
 
         return !vinculacoes.Any(v =>
             v.MotoristaId == motoristaId && (v.DataHoraFim == null || v.QuilometragemFinal == null)
@@ -29,7 +31,7 @@ public class VinculoService
 
     public bool VeiculoEstaDisponivel(int veiculoId)
     {
-        var vinculacoes = _vinculacaoRepository.GetAll();
+        var vinculacoes = _vinculacaoRepository.Vinculacoes;
 
         return !vinculacoes.Any(v =>
             v.VeiculoId == veiculoId && (v.DataHoraFim == null || v.QuilometragemFinal == null)
@@ -38,9 +40,9 @@ public class VinculoService
 
     public List<MotoristaDisponibilidadeViewModel> ObterDisponibilidadeMotoristas()
     {
-        List<Vinculacao> vinculacoes = _vinculacaoRepository.GetAll();
+        List<Vinculacao> vinculacoes = _vinculacaoRepository.Vinculacoes;
 
-        List<Motorista> motoristas = _motoristaRepository.GetAll();
+        List<Motorista> motoristas = _motoristaRepository.Motoristas;
 
         List<MotoristaDisponibilidadeViewModel> disponibilidadeMotoristas = motoristas
             .Select(m =>
@@ -58,14 +60,14 @@ public class VinculoService
 
     public List<VeiculoDisponibilidadeViewModel> ObterDisponibilidadeVeiculos()
     {
-        List<Vinculacao> vinculacoes = _vinculacaoRepository.GetAll();
+        List<Vinculacao> vinculacoes = _vinculacaoRepository.Vinculacoes;
 
-        List<Veiculo> veiculos = _veiculoRepository.GetAll();
+        List<Veiculo> veiculos = _veiculoRepository.Veiculos;
 
         List<VeiculoDisponibilidadeViewModel> disponibilidadeVeiculos = veiculos
             .Select(v =>
             {
-                new VeiculoDisponibilidadeViewModel
+                return new VeiculoDisponibilidadeViewModel
                 {
                     Veiculo = v,
                     DisponivelParaVinculacao = this.VeiculoEstaDisponivel(v.Id),
