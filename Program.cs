@@ -1,7 +1,15 @@
+using CRUD_CSHARP.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSingleton<VeiculoRepository>();
+builder.Services.AddSingleton<MotoristaRepository>();
+builder.Services.AddSingleton<VinculacaoRepository>();
+
+builder.Services.AddSingleton<VinculoService>();
 
 var app = builder.Build();
 

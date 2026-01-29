@@ -5,41 +5,24 @@ namespace CRUD_CSHARP.Controllers;
 
 public class MotoristasController : Controller
 {
-    private static readonly List<Motorista> Motoristas = new()
-    {
-        new Motorista
-        {
-            Id = 1,
-            Nome = "Ana Souza",
-            Cpf = "123.456.789-00",
-            Cnh = "CNH123456",
-            TipoCnh = TipoCnh.B,
-            Telefone = "(11) 99999-0001",
-            DataNascimento = new DateTime(1990, 5, 12)
-        },
-        new Motorista
-        {
-            Id = 2,
-            Nome = "Bruno Lima",
-            Cpf = "987.654.321-00",
-            Cnh = "CNH987654",
-            TipoCnh = TipoCnh.AB,
-            Telefone = "(21) 98888-0002",
-            DataNascimento = new DateTime(1985, 9, 3)
-        }
-    };
+    private MotoristaRepository _motoristaRepository;
 
     private static int _nextId = 3;
 
+    public MotoristasController(MotoristaRepository motoristaRepository)
+    {
+        _motoristaRepository = motoristaRepository;
+    }
+
     public IActionResult Index()
     {
-        var lista = Motoristas.OrderBy(m => m.Nome).ToList();
+        var lista = _motoristaRepository.Motoristas.OrderBy(m => m.Nome).ToList();
         return View(lista);
     }
 
     public IActionResult Details(int id)
     {
-        var motorista = Motoristas.FirstOrDefault(m => m.Id == id);
+        var motorista = _motoristaRepository.Motoristas.FirstOrDefault(m => m.Id == id);
         if (motorista is null)
         {
             return NotFound();
@@ -63,13 +46,13 @@ public class MotoristasController : Controller
         }
 
         motorista.Id = _nextId++;
-        Motoristas.Add(motorista);
+        _motoristaRepository.Motoristas.Add(motorista);
         return RedirectToAction(nameof(Index));
     }
 
     public IActionResult Edit(int id)
     {
-        var motorista = Motoristas.FirstOrDefault(m => m.Id == id);
+        var motorista = _motoristaRepository.Motoristas.FirstOrDefault(m => m.Id == id);
         if (motorista is null)
         {
             return NotFound();
@@ -92,7 +75,7 @@ public class MotoristasController : Controller
             return View(motorista);
         }
 
-        var existente = Motoristas.FirstOrDefault(m => m.Id == id);
+        var existente = _motoristaRepository.Motoristas.FirstOrDefault(m => m.Id == id);
         if (existente is null)
         {
             return NotFound();
@@ -110,7 +93,7 @@ public class MotoristasController : Controller
 
     public IActionResult Delete(int id)
     {
-        var motorista = Motoristas.FirstOrDefault(m => m.Id == id);
+        var motorista = _motoristaRepository.Motoristas.FirstOrDefault(m => m.Id == id);
         if (motorista is null)
         {
             return NotFound();
@@ -123,13 +106,13 @@ public class MotoristasController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Delete(int id, Motorista motorista)
     {
-        var existente = Motoristas.FirstOrDefault(m => m.Id == id);
+        var existente = _motoristaRepository.Motoristas.FirstOrDefault(m => m.Id == id);
         if (existente is null)
         {
             return NotFound();
         }
 
-        Motoristas.Remove(existente);
+        _motoristaRepository.Motoristas.Remove(existente);
         return RedirectToAction(nameof(Index));
     }
 }

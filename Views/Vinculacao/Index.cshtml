@@ -1,0 +1,75 @@
+@model IEnumerable<CRUD_CSHARP.Models.VinculacaoFullModel>
+
+@{
+    ViewData["Title"] = "Vinculações";
+}
+
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <h3 class="card-title">Lista de vinculações</h3>
+        <a class="btn btn-primary btn-sm" asp-action="Create">Nova vinculação</a>
+    </div>
+
+    <div class="card-body table-responsive p-0">
+        <table class="table table-striped table-hover text-nowrap">
+            <thead>
+                <tr>
+                    <th>Motorista</th>
+                    <th>Veículo</th>
+                    <th>Início</th>
+                    <th>Fim</th>
+                    <th>KM Inicial</th>
+                    <th>KM Final</th>
+                    <th>Motivo</th>
+                    <th>Observações</th>
+                    <th style="width: 160px;">Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Motorista.Nome</td>
+                    <td>@item.Veiculo.Placa - @item.Veiculo.Modelo</td>
+
+                    <td>@item.Vinculacao.DataHoraInicio.ToString("dd/MM/yyyy HH:mm")</td>
+
+                    <td>
+                        @if (item.Vinculacao.DataHoraFim.HasValue)
+                        {
+                            @item.Vinculacao.DataHoraFim.Value.ToString("dd/MM/yyyy HH:mm")
+                        }
+                        else
+                        {
+                            <span class="text-muted">Em uso</span>
+                        }
+                    </td>
+
+                    <td>@item.Vinculacao.QuilometragemInicial</td>
+
+                    <td>
+                        @if (item.Vinculacao.QuilometragemFinal.HasValue)
+                        {
+                            @item.Vinculacao.QuilometragemFinal
+                        }
+                        else
+                        {
+                            <span class="text-muted">—</span>
+                        }
+                    </td>
+
+                    <td><span  title="@item.Vinculacao.Motivo">@item.Vinculacao.Motivo.Substring(0, Math.Min(10, @item.Vinculacao.Motivo.Length))...</span></td>
+                    <td><span  title="@item.Vinculacao.Observacoes">@item.Vinculacao.Observacoes?.Substring(0, Math.Min(10, @item.Vinculacao.Observacoes?.Length ?? 0))...</span></td>
+
+                    <td>
+                        <a class="btn btn-info btn-xs" asp-action="Details" asp-route-id="@item.Vinculacao.Id">Detalhes</a>
+                        <a class="btn btn-warning btn-xs" asp-action="Edit" asp-route-id="@item.Vinculacao.Id">Editar</a>
+                        <a class="btn btn-danger btn-xs" asp-action="Delete" asp-route-id="@item.Vinculacao.Id">Excluir</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

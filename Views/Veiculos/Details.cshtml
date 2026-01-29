@@ -1,0 +1,51 @@
+@model CRUD_CSHARP.Models.Veiculo
+
+@{
+    ViewData["Title"] = "Detalhes do Veiculos";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Detalhes do veiculo</h3>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Placa</dt>
+            <dd class="col-sm-9">@Model.Placa</dd>
+
+            <dt class="col-sm-3">Marca</dt>
+            <dd class="col-sm-9">@Model.Marca</dd>
+
+            <dt class="col-sm-3">Modelo</dt>
+            <dd class="col-sm-9">@Model.Modelo</dd>
+
+            <dt class="col-sm-3">Ano</dt>
+            <dd class="col-sm-9">@Model.Ano</dd>
+
+            <dt class="col-sm-3">Capacidade do Tanque</dt>
+            <dd class="col-sm-9">
+                
+                @Model.CapacidadeTanqueLitros 
+                
+                @if (Model.Combustivel == TipoCombustivel.Eletrico) {
+                    <span> kWh </span>
+
+                } else {
+                    <span> litros </span>
+                }
+
+            </dd>
+
+            <dt class="col-sm-3">Tipo de Combustível</dt>
+            <dd class="col-sm-9">@Model.Combustivel</dd>
+
+            <dt class="col-sm-3">Categoria do veiculo</dt>
+            <dd class="col-sm-9">@Model.Categoria</dd>
+        </dl>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Excluir</a>
+        <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+    </div>
+</div>

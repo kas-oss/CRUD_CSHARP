@@ -1,0 +1,91 @@
+@model CRUD_CSHARP.Models.VinculacaoFullModel
+
+@{
+    ViewData["Title"] = "Detalhes da Vinculação";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Detalhes da vinculação</h3>
+    </div>
+
+    <div class="card-body">
+        <dl class="row">
+
+            <dt class="col-sm-3">Motorista</dt>
+            <dd class="col-sm-9">
+                <a class="btn btn-primary btn-sm me-5" asp-controller="Motoristas" asp-action="Details" asp-route-id="@Model.Motorista.Id">
+                    Ver
+                </a>
+                @Model.Motorista.Nome
+            </dd>
+
+            <dt class="col-sm-3">Veículo</dt>
+            <dd class="col-sm-9">
+                <a class="btn btn-primary btn-sm" asp-controller="Veiculos" asp-action="Details" asp-route-id="@Model.Veiculo.Id">
+                    Ver
+                </a>
+                @Model.Veiculo.Placa - @Model.Veiculo.Modelo
+            </dd>
+
+            <dt class="col-sm-3">Data e Hora de Início</dt>
+            <dd class="col-sm-9">
+                @Model.Vinculacao.DataHoraInicio
+            </dd>
+
+            <dt class="col-sm-3">Data e Hora de Fim</dt>
+            <dd class="col-sm-9">
+                @if (Model.Vinculacao.DataHoraFim.HasValue)
+                {
+                    @Model.Vinculacao.DataHoraFim.Value.ToString("dd/MM/yyyy HH:mm")
+                }
+                else
+                {
+                    <span class="text-muted">Em uso</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">Quilometragem Inicial</dt>
+            <dd class="col-sm-9">
+                @Model.Vinculacao.QuilometragemInicial
+            </dd>
+
+            <dt class="col-sm-3">Quilometragem Final</dt>
+            <dd class="col-sm-9">
+                @if (Model.Vinculacao.QuilometragemFinal.HasValue)
+                {
+                    @Model.Vinculacao.QuilometragemFinal
+                }
+                else
+                {
+                    <span class="text-muted">—</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">Motivo</dt>
+            <dd class="col-sm-9">
+                @Model.Vinculacao.Motivo
+            </dd>
+
+            <dt class="col-sm-3">Observações</dt>
+            <dd class="col-sm-9">
+                @Model.Vinculacao.Observacoes
+            </dd>
+
+        </dl>
+    </div>
+
+    <div class="card-footer">
+        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Vinculacao.Id">
+            Editar
+        </a>
+
+        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Vinculacao.Id">
+            Excluir
+        </a>
+
+        <a class="btn btn-secondary" asp-action="Index">
+            Voltar
+        </a>
+    </div>
+</div>
