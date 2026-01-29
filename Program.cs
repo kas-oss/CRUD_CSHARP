@@ -7,6 +7,7 @@ builder.Services.AddSingleton<VeiculoRepository>();
 builder.Services.AddSingleton<MotoristaRepository>();
 builder.Services.AddSingleton<VinculacaoRepository>();
 
+builder.Services.AddSingleton<VinculoService>();
 
 var app = builder.Build();
 
