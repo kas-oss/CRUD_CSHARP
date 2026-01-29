@@ -42,4 +42,25 @@ public class VinculacaoController : Controller
 
         return View(fullVincs);
     }
+
+    public IActionResult Details(int id)
+    {
+        var vinc = _vinculacaoRepository.Vinculacoes.FirstOrDefault(v => v.Id == id);
+        if (vinc == null)
+        {
+            return NotFound();
+        }
+
+        var motorista = _motoristaRepository.Motoristas.FirstOrDefault(m => m.Id == vinc.MotoristaId);
+        var veiculo = _veiculoRepository.Veiculos.FirstOrDefault(v => v.Id == vinc.VeiculoId);
+
+        var fullVinc = new VinculacaoFullModel
+        {
+            Vinculacao = vinc,
+            Motorista = motorista,
+            Veiculo = veiculo,
+        };
+
+        return View(fullVinc);
+    }
 }
