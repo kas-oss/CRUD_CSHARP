@@ -1,0 +1,108 @@
+@model CRUD_CSHARP.Models.VinculacaoFormModel
+
+@{
+    ViewData["Title"] = "Editar vinculação";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Editar vinculação</h3>
+    </div>
+
+    <form asp-action="Edit" asp-route-id="@Model.Vinculacao.Id" method="post">
+        <input type="hidden" asp-for="Vinculacao.Id" />
+
+        <div class="card-body">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Vinculacao.MotoristaId"></label>
+                <select asp-for="Vinculacao.MotoristaId" class="form-control">
+                    <option value="">-- Selecione um motorista --</option>
+
+                    @foreach (var item in Model.MotoristasDisponibilidade)
+                    {
+                        var selecionado = item.Motorista.Id == Model.Vinculacao.MotoristaId;
+                        var desabilitado = !item.DisponivelParaVinculacao && !selecionado;
+
+                        <option value="@item.Motorista.Id"
+                                selected="@(selecionado ? "selected" : null)"
+                                disabled="@(desabilitado ? "disabled" : null)">
+                            @item.Motorista.Nome
+                            @(item.DisponivelParaVinculacao ? "" : " (indisponível)")
+                        </option>
+                    }
+                </select>
+                <span asp-validation-for="Vinculacao.MotoristaId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Vinculacao.VeiculoId"></label>
+                <select asp-for="Vinculacao.VeiculoId" class="form-control">
+                    <option value="">-- Selecione um veículo --</option>
+
+                    @foreach (var item in Model.VeiculosDisponibilidade)
+                    {
+                        var selecionado = item.Veiculo.Id == Model.Vinculacao.VeiculoId;
+                        var desabilitado = !item.DisponivelParaVinculacao && !selecionado;
+
+                        <option value="@item.Veiculo.Id"
+                                selected="@(selecionado ? "selected" : null)"
+                                disabled="@(desabilitado ? "disabled" : null)">
+                            @item.Veiculo.Placa
+                            @(item.DisponivelParaVinculacao ? "" : " (indisponível)")
+                        </option>
+                    }
+                </select>
+                <span asp-validation-for="Vinculacao.VeiculoId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Vinculacao.DataHoraInicio"></label>
+                <input asp-for="Vinculacao.DataHoraInicio" class="form-control" type="datetime-local" />
+                <span asp-validation-for="Vinculacao.DataHoraInicio" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Vinculacao.DataHoraFim"></label>
+                <input asp-for="Vinculacao.DataHoraFim" class="form-control" type="datetime-local" />
+                <span asp-validation-for="Vinculacao.DataHoraFim" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Vinculacao.QuilometragemInicial"></label>
+                <input asp-for="Vinculacao.QuilometragemInicial" class="form-control" />
+                <span asp-validation-for="Vinculacao.QuilometragemInicial" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Vinculacao.QuilometragemFinal"></label>
+                <input asp-for="Vinculacao.QuilometragemFinal" class="form-control" />
+                <span asp-validation-for="Vinculacao.QuilometragemFinal" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Vinculacao.Motivo"></label>
+                <input asp-for="Vinculacao.Motivo" class="form-control" />
+                <span asp-validation-for="Vinculacao.Motivo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Vinculacao.Observacoes"></label>
+                <textarea asp-for="Vinculacao.Observacoes" class="form-control"></textarea>
+                <span asp-validation-for="Vinculacao.Observacoes" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Salvar alterações</button>
+            <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

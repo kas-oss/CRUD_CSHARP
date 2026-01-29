@@ -140,4 +140,105 @@ public class VinculacaoController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
+    public IActionResult Edit(int id)
+    {
+        var vinculacao = _vinculacaoRepository.Vinculacoes.FirstOrDefault(v => v.Id == id);
+
+        if (vinculacao == null)
+        {
+            return NotFound();
+        }
+
+        // Carrega as disponibilidades, más marca o motorista e veículo da vinculação em questão como disponiveis.
+        List<MotoristaDisponibilidadeViewModel> motoristasDisponibilidade =
+            _vinculoService.ObterDisponibilidadeMotoristas();
+
+        motoristasDisponibilidade
+            .Find(m => m.Motorista.Id == vinculacao.MotoristaId)!
+            .DisponivelParaVinculacao = true;
+
+        List<VeiculoDisponibilidadeViewModel> veiculosDisponibilidade =
+            _vinculoService.ObterDisponibilidadeVeiculos();
+
+        veiculosDisponibilidade
+            .Find(v => v.Veiculo.Id == vinculacao.VeiculoId)!
+            .DisponivelParaVinculacao = true;
+
+        VinculacaoFormModel model = new VinculacaoFormModel
+        {
+            Vinculacao = vinculacao,
+            MotoristasDisponibilidade = motoristasDisponibilidade,
+            VeiculosDisponibilidade = veiculosDisponibilidade,
+        };
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(int id, VinculacaoFormModel vinculacaoFormModel)
+    {
+        var vinculacaoExistente = _vinculacaoRepository.Vinculacoes.FirstOrDefault(v => v.Id == id);
+
+        if (vinculacaoExistente == null)
+            return NotFound();
+
+        bool error = false;
+
+        if (!ModelState.IsValid)
+        {
+            error = true;
+        }
+
+        // Realiza a verificação de disponibilidade apenas se o motorista ou veículo foram alterados
+        if (vinculacaoExistente.MotoristaId != vinculacaoFormModel.Vinculacao.MotoristaId)
+        {
+            if (
+                !_vinculoService.MotoristaEstaDisponivel(vinculacaoFormModel.Vinculacao.MotoristaId)
+            )
+            {
+                ModelState.AddModelError(
+                    "Vinculacao.MotoristaId",
+                    "O motorista selecionado não está disponível"
+                );
+                error = true;
+            }
+        }
+
+        if (vinculacaoExistente.VeiculoId != vinculacaoFormModel.Vinculacao.VeiculoId)
+        {
+            if (!_vinculoService.VeiculoEstaDisponivel(vinculacaoFormModel.Vinculacao.VeiculoId))
+            {
+                ModelState.AddModelError(
+                    "Vinculacao.VeiculoId",
+                    "O veículo selecionado não está disponível"
+                );
+                error = true;
+            }
+        }
+
+        if (error)
+        {
+            vinculacaoFormModel.MotoristasDisponibilidade =
+                _vinculoService.ObterDisponibilidadeMotoristas();
+
+            vinculacaoFormModel.VeiculosDisponibilidade =
+                _vinculoService.ObterDisponibilidadeVeiculos();
+
+            return View(vinculacaoFormModel);
+        }
+
+        vinculacaoExistente.MotoristaId = vinculacaoFormModel.Vinculacao.MotoristaId;
+        vinculacaoExistente.VeiculoId = vinculacaoFormModel.Vinculacao.VeiculoId;
+        vinculacaoExistente.DataHoraInicio = vinculacaoFormModel.Vinculacao.DataHoraInicio;
+        vinculacaoExistente.QuilometragemInicial = vinculacaoFormModel
+            .Vinculacao
+            .QuilometragemInicial;
+        vinculacaoExistente.DataHoraFim = vinculacaoFormModel.Vinculacao.DataHoraFim;
+        vinculacaoExistente.QuilometragemFinal = vinculacaoFormModel.Vinculacao.QuilometragemFinal;
+        vinculacaoExistente.Motivo = vinculacaoFormModel.Vinculacao.Motivo;
+        vinculacaoExistente.Observacoes = vinculacaoFormModel.Vinculacao.Observacoes;
+
+        return RedirectToAction(nameof(Index));
+    }
 }
